@@ -1,20 +1,20 @@
 import React from "react";
 
-import "./collection-item.styles.scss";
+import "./category-item.styles.scss";
 
-const CollectionItem = ({ id, name, age, imageUrl }) => (
-  <div className="wd-collection-item">
+const CategoryItem = ({ id, name, age, imageUrl }) => (
+  <div className="wd-category-item">
     <div
       className="wd-image"
       style={{
         backgroundImage: `url(${imageUrl})`,
       }}
     />
-    <div className="wd-collection-footer">
+    <div className="wd-category-footer">
       <span className="wd-name">{name}</span>
       <span className="wd-price">{age}</span>
     </div>
   </div>
 );
 
-export default CollectionItem;
+export default CategoryItem;

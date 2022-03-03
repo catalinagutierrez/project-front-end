@@ -1,7 +1,9 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { connect } from "react-redux";
 
 import HomePage from "./pages/home/home";
-import CollectionPage from "./pages/collection/collection";
+import CategoriesPage from "./pages/categories/categories";
 import Header from "./components/header/header";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up";
 
@@ -13,11 +15,13 @@ function App() {
       <Header />
       <Routes>
         <Route exact path="/home" element={<HomePage />} />
-        <Route path="/collection" element={<CollectionPage />} />
+        <Route path="/collection" element={<CategoriesPage />} />
         <Route path="/signin" element={<SignInAndSignUpPage />} />
       </Routes>
     </div>
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({});
+
+export default connect(null, mapDispatchToProps)(App);
