@@ -14,7 +14,7 @@ const Header = ({ hidden }) => (
       <Logo className="wd-logo" />
     </Link>
     <div className="wd-options">
-      <Link className="wd-option" to="/collection">
+      <Link className="wd-option" to="/categories">
         DISCOVER
       </Link>
       <Link className="option" to="/signin">
@@ -26,7 +26,7 @@ const Header = ({ hidden }) => (
   </div>
 );
 
-const mapStateToProps = ({ cartDropdown: { hidden } }) => ({
+const mapStateToProps = ({ cart: { hidden } }) => ({
   hidden,
 });
 

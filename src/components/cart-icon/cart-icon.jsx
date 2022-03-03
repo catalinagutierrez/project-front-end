@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { ReactComponent as Icon } from "../../assets/paw.svg";
-import { toggleCartHidden } from "../../redux/cart-dropdown/cart-dropdown.actions";
+import { toggleCartHidden } from "../../redux/cart/cart.actions";
 
 import "./cart-icon.styles.scss";
 

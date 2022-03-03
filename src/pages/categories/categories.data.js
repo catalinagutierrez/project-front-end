@@ -12,7 +12,7 @@ const DATA = [
       },
       {
         id: 2,
-        name: "Feliz",
+        name: "Felix",
         imageUrl: "https://i.ibb.co/xYKzwQj/cat4.png",
         age: 5,
       },

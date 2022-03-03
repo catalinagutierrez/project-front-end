@@ -15,7 +15,7 @@ function App() {
       <Header />
       <Routes>
         <Route exact path="/home" element={<HomePage />} />
-        <Route path="/collection" element={<CategoriesPage />} />
+        <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/signin" element={<SignInAndSignUpPage />} />
       </Routes>
     </div>

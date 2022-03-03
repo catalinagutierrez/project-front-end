@@ -10,8 +10,8 @@ const CategoryPreview = ({ title, items }) => (
     <div className="wd-preview">
       {items
         .filter((item, idx) => idx < 4)
-        .map(({ id, ...otherItemProps }) => (
-          <CategoryItem key={id} {...otherItemProps} />
+        .map((item) => (
+          <CategoryItem key={item.id} item={item} />
         ))}
     </div>
   </div>
