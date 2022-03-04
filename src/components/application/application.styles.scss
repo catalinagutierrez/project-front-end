@@ -1,0 +1,21 @@
+.wd-application {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  text-align: center;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+
+  @media screen and (max-width: 800px) {
+    margin-top: 50px;
+  }
+}
+
+.wd-application-title {
+  margin: 10px 0;
+}
+
+.wd-radio-button-input {
+  padding: 20px;
+  text-align: left;
+}

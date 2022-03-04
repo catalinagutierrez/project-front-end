@@ -11,16 +11,11 @@
   right: 40px;
   z-index: 5;
 
-  .wd-empty-message {
-    font-size: 18px;
-    margin: 50px auto;
-  }
-
   .wd-cart-items {
     height: 240px;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+    overflow: auto;
   }
 
   button {

@@ -11,14 +11,14 @@ const CategoryItem = ({ item, addItem }) => {
   return (
     <div className="wd-category-item">
       <div
-        className="wd-image"
+        className="wd-category-image"
         style={{
           backgroundImage: `url(${imageUrl})`,
         }}
       />
       <div className="wd-category-footer">
         <span className="wd-name">{name}</span>
-        <span className="wd-price">{age}</span>
+        <span className="wd-age">{age}</span>
       </div>
       <Button inverted onClick={() => addItem(item)}>
         APPLY FOR ADOPTION

@@ -1,25 +1,26 @@
 .wd-category-item {
-  width: 22%;
+  width: 22vw;
   display: flex;
   flex-direction: column;
-  height: 350px;
-  align-items: center;
+  height: 32vw;
+  align-items: space-between;
   position: relative;
+  margin: 1%;
 
-  .wd-image {
+  .wd-category-image {
     width: 100%;
     height: 95%;
     background-size: cover;
     background-position: center;
-    margin-bottom: 5px;
   }
 
-  .wd-button {
+  button {
     width: 80%;
     opacity: 0.7;
     position: absolute;
-    top: 255px;
+    top: 24vw;
     display: none;
+    align-self: center;
   }
 
   &:hover {
@@ -27,7 +28,7 @@
       opacity: 0.8;
     }
 
-    .wd-button {
+    button {
       opacity: 0.85;
       display: flex;
     }
@@ -41,12 +42,14 @@
     font-size: 18px;
 
     .wd-name {
-      width: 90%;
-      margin-bottom: 15px;
+      width: 80%;
+      height: 28px;
     }
 
-    .wd-price {
-      width: 10%;
+    .wd-age {
+      width: 20%;
+      overflow: hidden;
+      height: 28px;
     }
   }
 }
