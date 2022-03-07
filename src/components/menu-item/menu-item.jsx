@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import "./menu-item.styles.scss";
 
-const MenuItem = ({ title, imageUrl, size, linkUrl }) => {
+const MenuItem = ({ title, imageUrl, size, routeName }) => {
   let navigate = useNavigate();
 
   return (
     <div
       className={`${size} wd-menu-item`}
-      onClick={() => navigate(`${linkUrl}`)}
+      onClick={() => navigate("/discover/" + routeName, { replace: true })}
     >
       <div
         className="wd-background-image"

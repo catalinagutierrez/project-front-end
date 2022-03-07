@@ -16,18 +16,6 @@ export const DATA = [
         imageUrl: "https://i.ibb.co/xYKzwQj/cat4.png",
         age: "5 years",
       },
-      {
-        id: 3,
-        name: "Felix",
-        imageUrl: "https://i.ibb.co/xYKzwQj/cat4.png",
-        age: "5 years",
-      },
-      {
-        id: 4,
-        name: "Felix",
-        imageUrl: "https://i.ibb.co/xYKzwQj/cat4.png",
-        age: "5 years",
-      },
     ],
   },
   {
@@ -52,12 +40,6 @@ export const DATA = [
         name: "Perry",
         imageUrl: "https://i.ibb.co/6m0JVL9/dog3.png",
         age: "11 years",
-      },
-      {
-        id: 13,
-        name: "Luna",
-        imageUrl: "https://i.ibb.co/d4qKC4D/dog1.png",
-        age: "1 year",
       },
     ],
   },

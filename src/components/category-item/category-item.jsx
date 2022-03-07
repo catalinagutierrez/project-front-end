@@ -21,7 +21,7 @@ const CategoryItem = ({ item, addItem }) => {
         <span className="wd-age">{age}</span>
       </div>
       <Button inverted onClick={() => addItem(item)}>
-        APPLY FOR ADOPTION
+        ADOPT
       </Button>
     </div>
   );

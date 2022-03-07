@@ -14,7 +14,7 @@ const Header = ({ hidden }) => (
       <Logo className="wd-logo" />
     </Link>
     <div className="wd-options">
-      <Link className="wd-option" to="/categories">
+      <Link className="wd-option" to="/discover">
         DISCOVER
       </Link>
       <Link className="option" to="/signin">

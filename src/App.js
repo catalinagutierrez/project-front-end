@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { connect } from "react-redux";
 
 import HomePage from "./pages/home/home";
-import CategoriesPage from "./pages/categories/categories";
+import DiscoverPage from "./pages/discover/discover";
 import Header from "./components/header/header";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up";
 import ApplicationPage from "./pages/application/application";
@@ -16,7 +16,7 @@ function App() {
       <Header />
       <Routes>
         <Route exact path="/home" element={<HomePage />} />
-        <Route path="/categories" element={<CategoriesPage />} />
+        <Route path="/discover/*" element={<DiscoverPage />} />
         <Route path="/signin" element={<SignInAndSignUpPage />} />
         <Route path="/application" element={<ApplicationPage />} />
       </Routes>
