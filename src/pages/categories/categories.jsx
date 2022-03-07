@@ -1,9 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 
 import CategoryPreview from "../../components/category-preview/category-preview";
-import categories from "./categories.data";
+import { selectCategoryItems } from "../../redux/categories/categories.selectors";
 
-const CategoriesPage = () => {
+import "./categories.styles.scss";
+
+const CategoriesPage = ({ categories }) => {
   return (
     <div className="wd-category-page">
       {categories.map(({ id, ...otherCategoryProps }) => (
@@ -13,4 +17,8 @@ const CategoriesPage = () => {
   );
 };
 
-export default CategoriesPage;
+const mapStateToProps = createStructuredSelector({
+  categories: selectCategoryItems,
+});
+
+export default connect(mapStateToProps)(CategoriesPage);
