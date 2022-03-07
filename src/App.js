@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 
 import HomePage from "./pages/home/home";
@@ -15,6 +15,7 @@ function App() {
     <div>
       <Header />
       <Routes>
+        <Route path="/" element={<Navigate replace to="/home" />} />
         <Route exact path="/home" element={<HomePage />} />
         <Route path="/discover/*" element={<DiscoverPage />} />
         <Route path="/signin" element={<SignInAndSignUpPage />} />

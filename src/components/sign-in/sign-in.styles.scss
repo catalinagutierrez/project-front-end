@@ -1,5 +1,20 @@
 .wd-sign-in {
-  width: 30vw;
+  width: 380px;
   display: flex;
   flex-direction: column;
+}
+
+.wd-sign-in-title {
+  margin: 10px 0;
+}
+
+.wd-buttons-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wd-warning {
+  padding-bottom: 20px;
+  margin: 0;
+  color: red;
 }
