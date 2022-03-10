@@ -8,16 +8,13 @@ import CartIcon from "../cart-icon/cart-icon";
 import CartDropdown from "../cart-dropdown/cart-dropdown";
 
 import { selectCurrentUser } from "../../redux/user/users.selectors";
-import {
-  selectCartHidden,
-  selectCartItems,
-} from "../../redux/cart/cart.selectors";
-import { removeItemFromCart } from "../../redux/cart/cart.utils";
+import { selectCartHidden } from "../../redux/cart/cart.selectors";
 import { setCurrentUser } from "../../redux/user/user.actions";
+import { clearCart } from "../../redux/cart/cart.actions";
 
 import "./header.styles.scss";
 
-const Header = ({ hidden, currentUser, cartItems, removeItem }) => (
+const Header = ({ hidden, currentUser, clearCart, setCurrentUser }) => (
   <div className="wd-header">
     <Link className="wd-logo-container" to="/home">
       <Logo className="wd-logo" />
@@ -34,8 +31,9 @@ const Header = ({ hidden, currentUser, cartItems, removeItem }) => (
           <Link
             className="wd-option"
             onClick={() => {
+              //   cartItems.map((item) => removeItem(item));
+              clearCart();
               setCurrentUser(null);
-              cartItems.map((item) => removeItem(item));
             }}
             to="/home"
           >
@@ -47,7 +45,7 @@ const Header = ({ hidden, currentUser, cartItems, removeItem }) => (
           SIGN IN
         </Link>
       )}
-      <CartIcon />
+      {currentUser && <CartIcon />}
     </div>
     {hidden ? null : <CartDropdown />}
   </div>
@@ -56,11 +54,10 @@ const Header = ({ hidden, currentUser, cartItems, removeItem }) => (
 const mapStateToProps = createStructuredSelector({
   hidden: selectCartHidden,
   currentUser: selectCurrentUser,
-  cartItems: selectCartItems,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  removeItem: (item) => dispatch(removeItemFromCart(item)),
+  clearCart: () => dispatch(clearCart()),
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
