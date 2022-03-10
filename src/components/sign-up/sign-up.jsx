@@ -1,20 +1,27 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
 
+import { setCurrentUser } from "../../redux/user/user.actions";
+
 import "./sign-up.styles.scss";
 
-const SignUp = () => {
+const SignUp = ({ setCurrentUser }) => {
+  let navigate = useNavigate();
   const [error, setError] = useState({});
   const [userCredentials, setCredentials] = useState({
     displayName: "",
     email: "",
     password: "",
     confirmPassword: "",
+    type: "",
   });
 
-  const { displayName, email, password, confirmPassword } = userCredentials;
+  const { displayName, email, password, confirmPassword, type } =
+    userCredentials;
 
   const validate = () => {
     let errors = {};
@@ -65,43 +72,35 @@ const SignUp = () => {
     }
 
     if (password !== confirmPassword) {
+      isValid = false;
       errors["confirmPassword"] = "Passwords don't match.";
       errors["password"] = "Passwords don't match.";
     }
 
-    setError(errors);
+    if (type === "") {
+      isValid = false;
+      errors["type"] = "Please select an account type.";
+    }
 
+    setError(errors);
     console.log(error);
 
     return isValid;
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     if (validate()) {
-      //   try {
-      //     const { user } = await auth.createUserWithEmailAndPassword(
-      //       email,
-      //       password
-      //     );
-      //     await createUserProfileDocument(user, { displayName });
-      //     setCredentials({
-      //       displayName: "",
-      //       email: "",
-      //       password: "",
-      //       confirmPassword: "",
-      //     });
-      //   } catch (error) {
-      //     console.log(error);
-      //     alert(error.message);
-      //   }
+      setCurrentUser(userCredentials);
+      navigate("/home");
     }
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
+    console.log(name);
+    console.log(value);
     setCredentials({ ...userCredentials, [name]: value });
   };
 
@@ -142,10 +141,30 @@ const SignUp = () => {
           label="Confirm Password"
           error={error.confirmPassword}
         />
+        <FormInput
+          type="radio"
+          name="type"
+          value="buyer"
+          label="I'm looking to adopt!"
+          onChange={handleChange}
+          error={error.type}
+        />
+        <FormInput
+          type="radio"
+          name="type"
+          value="seller"
+          label="I want to put up for adoption!"
+          onChange={handleChange}
+          error={error.type}
+        />
         <Button type="submit">SIGN UP</Button>
       </form>
     </div>
   );
 };
 
-export default SignUp;
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+});
+
+export default connect(null, mapDispatchToProps)(SignUp);

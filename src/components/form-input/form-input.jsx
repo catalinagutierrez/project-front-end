@@ -8,12 +8,13 @@ const FormInput = ({ handleChange, label, ...otherProps }) => (
     {label ? (
       <label
         className={`${
-          otherProps.value.length ? "shrink" : ""
+          otherProps.value.length && otherProps.type !== "radio" ? "shrink" : ""
         } wd-form-input-label`}
       >
         {label}
       </label>
     ) : null}
+    <div className="wd-warning">{otherProps.error}</div>
   </div>
 );
 

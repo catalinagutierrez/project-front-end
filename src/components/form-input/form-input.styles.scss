@@ -9,7 +9,7 @@ $main-color: black;
 
 .wd-group {
   position: relative;
-  margin: 45px 0;
+  margin: 0;
 
   .wd-form-input {
     background: none;
@@ -22,19 +22,27 @@ $main-color: black;
     border: none;
     border-radius: 0;
     border-bottom: 1px solid $sub-color;
-    margin: 25px 0;
+    margin: 10px 0;
 
     &:focus {
       outline: none;
     }
 
-    &:focus ~ .form-input-label {
+    &:focus ~ .wd-form-input-label {
       @include shrinkLabel();
     }
   }
 
   input[type="password"] {
     letter-spacing: 0.3em;
+  }
+
+  input[type="radio"] + label {
+    margin: 0;
+    padding: 0 20px;
+    top: -7px;
+    font-size: 18px;
+    color: $main-color;
   }
 
   .wd-form-input-label {
@@ -51,4 +59,10 @@ $main-color: black;
       @include shrinkLabel();
     }
   }
+}
+
+.wd-warning {
+  padding: 0;
+  margin: 0;
+  color: red;
 }
