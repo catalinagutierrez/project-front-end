@@ -39,8 +39,10 @@ const SignIn = ({ setCurrentUser }) => {
 
   return (
     <div className="wd-sign-in">
-      <h2>I already have an account</h2>
-      <span>Sign in with your email and password</span>
+      <h2 className="wd-sign-in-title">I already have an account</h2>
+      <span className="wd-sign-in-span">
+        Sign in with your email and password
+      </span>
 
       <form onSubmit={handleSubmit}>
         <FormInput
