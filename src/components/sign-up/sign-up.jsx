@@ -110,7 +110,7 @@ const SignUp = ({ setCurrentUser }) => {
       <span className="wd-sign-up-span">
         Sign up with your email and password
       </span>
-      <form className="sign-up-form" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <FormInput
           type="text"
           name="displayName"

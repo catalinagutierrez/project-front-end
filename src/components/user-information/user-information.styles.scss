@@ -1,0 +1,43 @@
+$sub-color: grey;
+$main-color: black;
+
+.wd-user-information {
+  margin: 50px;
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+
+  @media screen and (max-width: 800px) {
+    margin-top: 50px;
+  }
+}
+
+.wd-user-information-item {
+  margin-bottom: 25px;
+}
+
+.wd-profile-title {
+  margin: 25px 0;
+}
+
+.wd-warning {
+  padding-bottom: 20px;
+  margin: 0;
+  color: red;
+}
+
+.wd-profile-body {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.wd-buttons-bar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wd-edit-user-form {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+}

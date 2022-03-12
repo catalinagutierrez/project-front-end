@@ -10,7 +10,6 @@ import "./category.styles.scss";
 
 const CategoryPage = ({ categories }) => {
   const { categoryUrlName } = useParams();
-  console.log(categoryUrlName);
 
   const category = categories.find(
     (category) => category.routeName === categoryUrlName

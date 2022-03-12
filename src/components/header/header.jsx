@@ -25,13 +25,12 @@ const Header = ({ hidden, currentUser, clearCart, setCurrentUser }) => (
       </Link>
       {currentUser ? (
         <div>
-          <Link className="option" to="/user">
+          <Link className="option" to="/profile">
             PROFILE
           </Link>
           <Link
             className="wd-option"
             onClick={() => {
-              //   cartItems.map((item) => removeItem(item));
               clearCart();
               setCurrentUser(null);
             }}

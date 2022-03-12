@@ -7,6 +7,7 @@ import DiscoverPage from "./pages/discover/discover";
 import Header from "./components/header/header";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up";
 import ApplicationPage from "./pages/application/application";
+import ProfilePage from "./pages/profile/profile";
 
 import "./App.css";
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/discover/*" element={<DiscoverPage />} />
         <Route path="/signin" element={<SignInAndSignUpPage />} />
         <Route path="/application" element={<ApplicationPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </div>
   );
