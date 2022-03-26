@@ -1,14 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { createStructuredSelector } from "reselect";
 
 import CategoryItem from "../../components/category-item/category-item";
-import { selectCategoryItems } from "../../redux/categories/categories.selectors";
 
 import "./category.styles.scss";
 
-const CategoryPage = ({ categories }) => {
+const CategoryPage = () => {
+  const categories = useSelector((state) => state.categories.categories);
   const { categoryUrlName } = useParams();
 
   const category = categories.find(
@@ -28,8 +27,4 @@ const CategoryPage = ({ categories }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  categories: selectCategoryItems,
-});
-
-export default connect(mapStateToProps)(CategoryPage);
+export default CategoryPage;

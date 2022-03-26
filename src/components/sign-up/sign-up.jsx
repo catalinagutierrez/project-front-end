@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import FormInput from "../form-input/form-input";
@@ -9,7 +9,8 @@ import { setCurrentUser } from "../../redux/user/user.actions";
 
 import "./sign-up.styles.scss";
 
-const SignUp = ({ setCurrentUser }) => {
+const SignUp = () => {
+  const dispatch = useDispatch();
   let navigate = useNavigate();
   const [error, setError] = useState({});
   const [userCredentials, setCredentials] = useState({
@@ -92,15 +93,13 @@ const SignUp = ({ setCurrentUser }) => {
     event.preventDefault();
 
     if (validate()) {
-      setCurrentUser(userCredentials);
+      dispatch(setCurrentUser(userCredentials));
       navigate("/home");
     }
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name);
-    console.log(value);
     setCredentials({ ...userCredentials, [name]: value });
   };
 
@@ -159,14 +158,10 @@ const SignUp = ({ setCurrentUser }) => {
           onChange={handleChange}
           error={error.type}
         />
-        <Button type="submit">SIGN UP</Button>
+        <Button onClick={handleSubmit}>SIGN UP</Button>
       </form>
     </div>
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
-
-export default connect(null, mapDispatchToProps)(SignUp);
+export default SignUp;

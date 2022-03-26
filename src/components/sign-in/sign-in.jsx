@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import FormInput from "../form-input/form-input";
@@ -9,7 +9,8 @@ import { setCurrentUser } from "../../redux/user/user.actions";
 
 import "./sign-in.styles.scss";
 
-const SignIn = ({ setCurrentUser }) => {
+const SignIn = () => {
+  const dispatch = useDispatch();
   let navigate = useNavigate();
   const [error, setError] = useState("");
   const [userCredentials, setCredentials] = useState({
@@ -23,7 +24,7 @@ const SignIn = ({ setCurrentUser }) => {
     event.preventDefault();
 
     try {
-      setCurrentUser(userCredentials);
+      dispatch(setCurrentUser(userCredentials));
       setCredentials({ email: "", password: "" });
       navigate("/home");
     } catch (error) {
@@ -73,8 +74,4 @@ const SignIn = ({ setCurrentUser }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
-
-export default connect(null, mapDispatchToProps)(SignIn);
+export default SignIn;

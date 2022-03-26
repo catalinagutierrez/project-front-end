@@ -2,7 +2,19 @@ $sub-color: grey;
 $main-color: black;
 
 .wd-user-information {
-  margin: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 60px 0;
+}
+
+.wd-user-img {
+  width: 300px;
+  height: 300px;
+  border-radius: 150px;
+}
+
+.wd-user-details {
   display: flex;
   flex-direction: column;
   width: 380px;

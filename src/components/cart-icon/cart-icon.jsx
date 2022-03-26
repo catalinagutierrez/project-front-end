@@ -1,25 +1,26 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { ReactComponent as Icon } from "../../assets/paw.svg";
 import { toggleCartHidden } from "../../redux/cart/cart.actions";
-import { selectCartItemsCount } from "../../redux/cart/cart.selectors";
 
 import "./cart-icon.styles.scss";
 
-const CartIcon = ({ toggleCartHidden, itemCount }) => (
-  <div className="wd-cart-icon" onClick={toggleCartHidden}>
-    <Icon className="wd-shopping-icon" />
-    <span className="wd-item-count">{itemCount}</span>
-  </div>
-);
+const CartIcon = () => {
+  const dispatch = useDispatch();
+  const itemCount = useSelector((state) =>
+    state.cart.cartItems.reduce(
+      (accumalatedQuantity, cartItem) => accumalatedQuantity + 1,
+      0
+    )
+  );
 
-const mapDispatchToProps = (dispatch) => ({
-  toggleCartHidden: () => dispatch(toggleCartHidden()),
-});
+  return (
+    <div className="wd-cart-icon" onClick={() => dispatch(toggleCartHidden())}>
+      <Icon className="wd-shopping-icon" />
+      <span className="wd-item-count">{itemCount}</span>
+    </div>
+  );
+};
 
-const mapStateToProps = (state) => ({
-  itemCount: selectCartItemsCount(state),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartIcon);
+export default CartIcon;

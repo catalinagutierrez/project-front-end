@@ -1,22 +1,20 @@
 import React from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { useSelector } from "react-redux";
 
 import CategoryPreview from "../category-preview/category-preview";
-import { selectCategoryItems } from "../../redux/categories/categories.selectors";
 
 import "./category-overview.styles.scss";
 
-const CategoryOverview = ({ categories }) => (
-  <div className="wd-category-overview">
-    {categories.map(({ id, ...otherCategoryProps }) => (
-      <CategoryPreview key={id} {...otherCategoryProps} />
-    ))}
-  </div>
-);
+const CategoryOverview = () => {
+  const categories = useSelector((state) => state.categories.categories);
 
-const mapStateToProps = createStructuredSelector({
-  categories: selectCategoryItems,
-});
+  return (
+    <div className="wd-category-overview">
+      {categories.map(({ id, ...otherCategoryProps }) => (
+        <CategoryPreview key={id} {...otherCategoryProps} />
+      ))}
+    </div>
+  );
+};
 
-export default connect(mapStateToProps)(CategoryOverview);
+export default CategoryOverview;

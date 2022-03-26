@@ -1,13 +1,11 @@
 import React from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { useSelector } from "react-redux";
 
 import UserInformation from "../../components/user-information/user-information";
-import CategoryItem from "../../components/category-item/category-item";
+import CategoryPreview from "../../components/category-preview/category-preview";
 
-import { selectCategoryItems } from "../../redux/categories/categories.selectors";
-
-const ProfilePage = ({ categories }) => {
+const ProfilePage = () => {
+  const categories = useSelector((state) => state.categories.categories);
   const category = categories.find(
     (category) => category.routeName === "kittens"
   );
@@ -17,22 +15,13 @@ const ProfilePage = ({ categories }) => {
   return (
     <div className="wd-profile">
       <UserInformation />
-      <div>
-        <h2>Pick up where you left off...</h2>
-        <div className="wd-profile-preview-items">
-          {items
-            .filter((item, idx) => idx < 4)
-            .map((item) => (
-              <CategoryItem key={item.id} item={item} />
-            ))}
-        </div>
-      </div>
+      <CategoryPreview
+        items={items}
+        title={"Pick up where you left off..."}
+        routeName={"profile"}
+      />
     </div>
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  categories: selectCategoryItems,
-});
-
-export default connect(mapStateToProps)(ProfilePage);
+export default ProfilePage;

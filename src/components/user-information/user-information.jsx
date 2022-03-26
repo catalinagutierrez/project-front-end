@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import { createStructuredSelector } from "reselect";
+import { useSelector, useDispatch } from "react-redux";
 
-import { selectCurrentUser } from "../../redux/user/users.selectors";
 import Button from "../button/button";
 import FormInput from "../form-input/form-input";
 
@@ -10,7 +8,9 @@ import { setCurrentUser } from "../../redux/user/user.actions";
 
 import "./user-information.styles.scss";
 
-const UserInformation = ({ currentUser, setCurrentUser }) => {
+const UserInformation = () => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [editable, setEditable] = useState(false);
   const [userCredentials, setCredentials] = useState(currentUser);
   const [error, setError] = useState({});
@@ -92,7 +92,7 @@ const UserInformation = ({ currentUser, setCurrentUser }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validate()) {
-      setCurrentUser(userCredentials);
+      dispatch(setCurrentUser(userCredentials));
       setEditable(false);
     }
   };
@@ -100,74 +100,80 @@ const UserInformation = ({ currentUser, setCurrentUser }) => {
   if (!editable) {
     return (
       <div className="wd-user-information">
-        <h1 className="wd-profile-title">{displayName}</h1>
-        <div className="wd-profile-body">
-          <div className="wd-user-information-item">Email: {email}</div>
-          <div className="wd-user-information-item">Account Type: {type}</div>
-          <Button onClick={() => setEditable(true)}>Edit</Button>
+        <img
+          src={require(`../../assets/user1.png`)}
+          alt="user"
+          className="wd-user-img"
+        />
+        <div className="wd-user-details">
+          <h1 className="wd-profile-title">{displayName}</h1>
+          <div className="wd-profile-body">
+            <div className="wd-user-information-item">Email: {email}</div>
+            <div className="wd-user-information-item">Account Type: {type}</div>
+            <Button onClick={() => setEditable(true)}>Edit</Button>
+          </div>
         </div>
       </div>
     );
   } else {
     return (
       <div className="wd-user-information">
-        <form className="wd-edit-user-form" onSubmit={handleSubmit}>
-          <FormInput
-            type="text"
-            name="displayName"
-            value={displayName}
-            onChange={handleChange}
-            label="Display Name"
-            error={error.displayName}
-          />
-          <FormInput
-            type="text"
-            name="email"
-            value={email}
-            onChange={handleChange}
-            label="Email"
-            error={error.email}
-          />
-          <FormInput
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-            label="Password"
-            error={error.password}
-          />
-          <FormInput
-            type="password"
-            name="confirmPassword"
-            value={confirmPassword}
-            onChange={handleChange}
-            label="Confirm Password"
-            error={error.confirmPassword}
-          />
-          <div className="wd-buttons-bar">
-            <Button type="submit">SAVE</Button>
-            <Button
-              onClick={() => {
-                setEditable(false);
-                setError({});
-                setCredentials(currentUser);
-              }}
-            >
-              CANCEL
-            </Button>
-          </div>
-        </form>
+        <img
+          src={require(`../../assets/user1.png`)}
+          alt="user"
+          className="wd-user-img"
+        />
+        <div className="wd-user-details">
+          <form className="wd-edit-user-form" onSubmit={handleSubmit}>
+            <FormInput
+              type="text"
+              name="displayName"
+              value={displayName}
+              onChange={handleChange}
+              label="Display Name"
+              error={error.displayName}
+            />
+            <FormInput
+              type="text"
+              name="email"
+              value={email}
+              onChange={handleChange}
+              label="Email"
+              error={error.email}
+            />
+            <FormInput
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+              label="Password"
+              error={error.password}
+            />
+            <FormInput
+              type="password"
+              name="confirmPassword"
+              value={confirmPassword}
+              onChange={handleChange}
+              label="Confirm Password"
+              error={error.confirmPassword}
+            />
+            <div className="wd-buttons-bar">
+              <Button type="submit">SAVE</Button>
+              <Button
+                onClick={() => {
+                  setEditable(false);
+                  setError({});
+                  setCredentials(currentUser);
+                }}
+              >
+                CANCEL
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
 };
 
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserInformation);
+export default UserInformation;

@@ -1,16 +1,17 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Button from "../button/button";
 import { addItem } from "../../redux/cart/cart.actions";
 
-import { selectCurrentUser } from "../../redux/user/users.selectors";
-
 import "./category-item.styles.scss";
 
-const CategoryItem = ({ item, addItem, currentUser }) => {
+const CategoryItem = ({ item }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.user.currentUser);
+
   const { imageUrl, name, age } = item;
 
   return (
@@ -28,7 +29,9 @@ const CategoryItem = ({ item, addItem, currentUser }) => {
       <Button
         inverted
         onClick={() => {
-          currentUser ? addItem(item) : navigate("/signin", { replace: true });
+          currentUser
+            ? dispatch(addItem(item))
+            : navigate("/signin", { replace: true });
         }}
       >
         {currentUser ? "ADOPT" : "SIGN IN TO ADOPT"}
@@ -37,12 +40,4 @@ const CategoryItem = ({ item, addItem, currentUser }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  addItem: (item) => dispatch(addItem(item)),
-});
-
-const mapStateToProps = (state) => ({
-  currentUser: selectCurrentUser(state),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryItem);
+export default CategoryItem;
