@@ -6,21 +6,30 @@ $main-color: black;
   flex-direction: row;
   justify-content: space-evenly;
   margin: 60px 0;
+
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+    justify-content:space-around;
+  }
 }
 
 .wd-user-img {
-  width: 300px;
-  height: 300px;
-  border-radius: 150px;
+  width: 40%;
+  height: 40%;
+  border-radius: 50%;
+  max-width: 300px;
+  max-height: 300px;
+  margin:auto;
 }
 
 .wd-user-details {
   display: flex;
   flex-direction: column;
-  width: 380px;
+  width: 40%;
+  margin:auto;
 
   @media screen and (max-width: 800px) {
-    margin-top: 50px;
+    width:80%;
   }
 }
 
@@ -51,5 +60,6 @@ $main-color: black;
 .wd-edit-user-form {
   display: flex;
   flex-direction: column;
-  width: 380px;
+  width: 100%;
+
 }

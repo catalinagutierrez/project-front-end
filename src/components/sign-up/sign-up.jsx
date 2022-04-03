@@ -18,7 +18,6 @@ const SignUp = () => {
     email: "",
     password: "",
     confirmPassword: "",
-    type: "",
   });
 
   const { displayName, email, password, confirmPassword, type } =
@@ -76,11 +75,6 @@ const SignUp = () => {
       isValid = false;
       errors["confirmPassword"] = "Passwords don't match.";
       errors["password"] = "Passwords don't match.";
-    }
-
-    if (type === "") {
-      isValid = false;
-      errors["type"] = "Please select an account type.";
     }
 
     setError(errors);
@@ -141,22 +135,6 @@ const SignUp = () => {
           onChange={handleChange}
           label="Confirm Password"
           error={error.confirmPassword}
-        />
-        <FormInput
-          type="radio"
-          name="type"
-          value="buyer"
-          label="I'm looking to adopt!"
-          onChange={handleChange}
-          error={error.type}
-        />
-        <FormInput
-          type="radio"
-          name="type"
-          value="seller"
-          label="I want to put up for adoption!"
-          onChange={handleChange}
-          error={error.type}
         />
         <Button onClick={handleSubmit}>SIGN UP</Button>
       </form>

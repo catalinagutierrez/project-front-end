@@ -71,11 +71,6 @@ const UserInformation = () => {
       errors["password"] = "Passwords don't match.";
     }
 
-    if (type === "") {
-      isValid = false;
-      errors["type"] = "Please select an account type.";
-    }
-
     setError(errors);
     console.log(error);
 
@@ -109,7 +104,6 @@ const UserInformation = () => {
           <h1 className="wd-profile-title">{displayName}</h1>
           <div className="wd-profile-body">
             <div className="wd-user-information-item">Email: {email}</div>
-            <div className="wd-user-information-item">Account Type: {type}</div>
             <Button onClick={() => setEditable(true)}>Edit</Button>
           </div>
         </div>

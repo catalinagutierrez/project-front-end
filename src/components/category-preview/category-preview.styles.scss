@@ -3,6 +3,7 @@
   flex-direction: column;
   margin-bottom: 30px;
 
+
   .wd-title {
     font-size: 28px;
     margin-bottom: 25px;
@@ -11,5 +12,17 @@
   .wd-preview {
     display: flex;
     justify-content: left;
+
+    @media screen and (max-width: 1200px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 15px;
+    }
+
+    @media screen and (max-width: 700px) {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 15px;
+    }
   }
 }

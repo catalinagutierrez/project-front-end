@@ -28,7 +28,8 @@ const CategoryPreview = ({ title, items }) => {
           </h1>
           <div className="wd-preview">
             {items
-              .filter((item, idx) => idx < 4)
+              .filter((item, idx) => item.photos.length > 0)
+              .slice(0, 4)
               .map((item) => (
                 <CategoryItem key={item.id} item={item} />
               ))}
