@@ -1,13 +1,19 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
+import image from "../../assets/anonymous-pet.jpg";
+
 import { removeItem } from "../../redux/cart/cart.actions";
 
 import "./application-item.styles.scss";
 
 const ApplicationItem = ({ item }) => {
   const dispatch = useDispatch();
-  const { name, imageUrl } = item;
+  const name = item.name;
+  let imageUrl = image;
+  try {
+    imageUrl = item.photos[0].large;
+  } catch {}
 
   return (
     <div className="wd-application-item">

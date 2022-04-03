@@ -6,13 +6,26 @@ import CategoryPreview from "../category-preview/category-preview";
 import "./category-overview.styles.scss";
 
 const CategoryOverview = () => {
-  const categories = useSelector((state) => state.categories.categories);
+  const data = useSelector((state) => state.petData.data);
 
   return (
-    <div className="wd-category-overview">
-      {categories.map(({ id, ...otherCategoryProps }) => (
-        <CategoryPreview key={id} {...otherCategoryProps} />
-      ))}
+    <div>
+      {data.length === 0 ? (
+        <div>
+          Looks like there are not pets available at the moment. Please come
+          back soon!
+        </div>
+      ) : (
+        <div className="wd-category-overview">
+          {data.map((category) => (
+            <CategoryPreview
+              key={category.id}
+              title={category.title}
+              items={category.items}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

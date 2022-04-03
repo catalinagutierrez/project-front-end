@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+
+import { getPetData } from "./redux/pet-data/pet-data.actions";
 
 import HomePage from "./pages/home/home";
 import DiscoverPage from "./pages/discover/discover";
@@ -12,6 +14,14 @@ import ProfilePage from "./pages/profile/profile";
 import "./App.css";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    getPetData(dispatch, "cats", { type: "cat", age: "adult" });
+    getPetData(dispatch, "kittens", { type: "cat", age: "baby" });
+    getPetData(dispatch, "dogs", { type: "dog", age: "adult" });
+    getPetData(dispatch, "puppies", { type: "dog", age: "baby" });
+  }, [dispatch]);
+
   return (
     <div>
       <Header />
@@ -27,6 +37,4 @@ function App() {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({});
-
-export default connect(null, mapDispatchToProps)(App);
+export default App;

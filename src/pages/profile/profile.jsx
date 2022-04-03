@@ -5,10 +5,8 @@ import UserInformation from "../../components/user-information/user-information"
 import CategoryPreview from "../../components/category-preview/category-preview";
 
 const ProfilePage = () => {
-  const categories = useSelector((state) => state.categories.categories);
-  const category = categories.find(
-    (category) => category.routeName === "kittens"
-  );
+  const petData = useSelector((state) => state.petData.data);
+  const category = petData.find((category) => category.title === "kittens");
   const { items } = category;
   console.log(items);
 
