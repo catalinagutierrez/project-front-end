@@ -14,8 +14,7 @@ const UserInformation = () => {
   const [editable, setEditable] = useState(false);
   const [userCredentials, setCredentials] = useState(currentUser);
   const [error, setError] = useState({});
-  const { displayName, email, password, confirmPassword, type } =
-    userCredentials;
+  const { displayName, email, password, confirmPassword } = userCredentials;
 
   const validate = () => {
     let errors = {};

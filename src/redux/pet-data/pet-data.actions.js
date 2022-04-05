@@ -9,7 +9,5 @@ export const getPetData = async (dispatch, category, params) => {
       type: PetDataActionTypes.LOAD_DATA,
       payload: { category: category, items: response.data.animals },
     });
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 };

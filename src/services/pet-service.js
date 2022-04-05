@@ -1,5 +1,7 @@
 import axios from "axios";
 
+let count = 0;
+
 let axiosInstance = axios.create({
   baseURL: `https://api.petfinder.com/v2/`,
   headers: {
@@ -20,10 +22,6 @@ axiosInstance.interceptors.request.use(
     //if current token doesn't exist, get a new one
     if (!token) {
       token = await refreshToken();
-
-      if (token) {
-        localStorage.setItem("token", JSON.stringify(token.data));
-      }
     }
 
     config.headers[
@@ -43,33 +41,23 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (error.response) {
-      alert(error.response.status);
+    console.log(error);
 
-      // if it was unauthorized, try refreshing the token again
-      // mark the retry to avoid infinite loops
-      if (error.response.status === 401 && !error.config.retry) {
-        error.config.retry = true;
+    // if it was unauthorized, try refreshing the token again
+    // mark the retry to avoid infinite loops
+    await refreshToken();
 
-        const token = await refreshToken();
-        localStorage.setItem("token", JSON.stringify(token.data));
-
-        return axiosInstance(error.config);
-      }
-      if (error.response.status !== 401) {
-        return Promise.reject(error.response.data);
-      }
-    }
     return Promise.reject(error);
   }
 );
 
 // returns a promise that gets the bearer token
-const refreshToken = () => {
-  return axiosInstance.post(
+const refreshToken = async () => {
+  const token = await axiosInstance.post(
     "oauth2/token",
     `grant_type=client_credentials&client_id=${process.env.REACT_APP_API_KEY}&client_secret=${process.env.REACT_APP_API_SECRET}`
   );
+  localStorage.setItem("token", JSON.stringify(token.data));
 };
 
 const getPetData = async (params) => {

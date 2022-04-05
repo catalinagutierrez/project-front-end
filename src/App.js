@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -15,12 +15,17 @@ import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    getPetData(dispatch, "cats", { type: "cat", age: "adult" });
-    getPetData(dispatch, "kittens", { type: "cat", age: "baby" });
-    getPetData(dispatch, "dogs", { type: "dog", age: "adult" });
-    getPetData(dispatch, "puppies", { type: "dog", age: "baby" });
+
+  const loadData = useCallback(async () => {
+    await getPetData(dispatch, "cats", { type: "cat", age: "adult" });
+    await getPetData(dispatch, "kittens", { type: "cat", age: "baby" });
+    await getPetData(dispatch, "dogs", { type: "dog", age: "adult" });
+    await getPetData(dispatch, "puppies", { type: "dog", age: "baby" });
   }, [dispatch]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
 
   return (
     <div>

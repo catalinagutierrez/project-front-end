@@ -20,8 +20,7 @@ const SignUp = () => {
     confirmPassword: "",
   });
 
-  const { displayName, email, password, confirmPassword, type } =
-    userCredentials;
+  const { displayName, email, password, confirmPassword } = userCredentials;
 
   const validate = () => {
     let errors = {};

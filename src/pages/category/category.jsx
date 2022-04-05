@@ -16,11 +16,18 @@ const CategoryPage = () => {
   return (
     <div className="wd-category-page">
       <h2 className="wd-title">{title.toUpperCase()}</h2>
-      <div className="wd-items">
-        {items.map((item) => (
-          <CategoryItem key={item.id} item={item} />
-        ))}
-      </div>
+      {items.length === 0 ? (
+        <div>
+          Looks like there are not pets available at the moment. Please come
+          back soon!
+        </div>
+      ) : (
+        <div className="wd-items">
+          {items.map((item) => (
+            <CategoryItem key={item.id} item={item} />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

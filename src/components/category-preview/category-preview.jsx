@@ -10,7 +10,7 @@ const CategoryPreview = ({ title, items }) => {
 
   return (
     <div>
-      {items.length == 0 ? (
+      {items.length === 0 ? (
         <div>
           <h1>{title.toUpperCase()}</h1>
           Looks like there are not pets available at the moment. Please come
