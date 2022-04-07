@@ -9,7 +9,7 @@ import image from "../../assets/anonymous-pet.jpg";
 
 import "./category-item.styles.scss";
 
-const CategoryItem = ({ item }) => {
+const CategoryItem = ({ item, category }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -22,7 +22,14 @@ const CategoryItem = ({ item }) => {
   } catch {}
 
   return (
-    <div className="wd-category-item">
+    <div
+      className="wd-category-item"
+      onClick={() =>
+        navigate(`/details?category=${category}&id=${item.id}`, {
+          replace: true,
+        })
+      }
+    >
       <div
         className="wd-category-image"
         style={{

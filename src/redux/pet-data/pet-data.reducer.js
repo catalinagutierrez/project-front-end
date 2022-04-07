@@ -37,6 +37,12 @@ const animalDataReducer = (state = INITIAL_STATE, action) => {
         ),
       };
 
+    case PetDataActionTypes.GET_PET_DETAILS:
+      return {
+        ...state,
+        data: state.data.find((item) => item.id === action.payload),
+      };
+
     default:
       return state;
   }

@@ -12,12 +12,17 @@ import ApplicationPage from "./pages/application/application";
 import ProfilePage from "./pages/profile/profile";
 
 import "./App.css";
+import ItemDetailsPage from "./pages/item-details/item-details";
 
 function App() {
   const dispatch = useDispatch();
 
   const loadData = useCallback(async () => {
-    await getPetData(dispatch, "cats", { type: "cat", age: "adult" });
+    try {
+      await getPetData(dispatch, "cats", { type: "cat", age: "adult" });
+    } catch (err) {
+      await getPetData(dispatch, "cats", { type: "cat", age: "adult" });
+    }
     await getPetData(dispatch, "kittens", { type: "cat", age: "baby" });
     await getPetData(dispatch, "dogs", { type: "dog", age: "adult" });
     await getPetData(dispatch, "puppies", { type: "dog", age: "baby" });
@@ -37,6 +42,7 @@ function App() {
         <Route path="/signin" element={<SignInAndSignUpPage />} />
         <Route path="/application" element={<ApplicationPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/details/*" element={<ItemDetailsPage />} />
       </Routes>
     </div>
   );

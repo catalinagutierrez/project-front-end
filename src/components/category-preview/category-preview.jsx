@@ -31,7 +31,7 @@ const CategoryPreview = ({ title, items }) => {
               .filter((item, idx) => item.photos.length > 0)
               .slice(0, 4)
               .map((item) => (
-                <CategoryItem key={item.id} item={item} />
+                <CategoryItem key={item.id} item={item} category={title} />
               ))}
           </div>
         </div>

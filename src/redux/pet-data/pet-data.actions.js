@@ -11,3 +11,10 @@ export const getPetData = async (dispatch, category, params) => {
     });
   } catch (error) {}
 };
+
+export const getPetDetails = (dispatch, id) => {
+  dispatch({
+    type: PetDataActionTypes.GET_PET_DETAILS,
+    payload: id,
+  });
+};

@@ -1,0 +1,55 @@
+.wd-pet-information {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 60px;
+    font-size: x-large;
+
+    p{
+        margin: 8px;
+    }
+
+    a{
+        color: rgb(66, 202, 247)
+    }
+  
+    @media screen and (max-width: 800px) {
+      flex-direction: column;
+      justify-content:space-around;
+    }
+  }
+
+  .wd-pet-img {
+    max-width: 400px;
+    max-height: 600px;
+    margin:auto;
+  }
+
+  .wd-pet-details {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin:auto;
+    padding-left: 40px;
+  
+    @media screen and (max-width: 800px) {
+      width:100%;
+      padding: none;
+    }
+  }
+
+  .wd-pet-photos{
+      margin:30px;
+    justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+
+      img{
+          max-height: 300px;
+          width: auto;
+            height: auto;
+          object-fit: cover;
+          margin:10px;
+      }
+  }
+
