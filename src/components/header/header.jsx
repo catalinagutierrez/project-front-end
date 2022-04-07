@@ -33,8 +33,8 @@ const Header = () => {
             <Link
               className="wd-option"
               onClick={() => {
-                dispatch(clearCart());
-                dispatch(setCurrentUser(null));
+                clearCart(dispatch);
+                setCurrentUser(dispatch, null);
               }}
               to="/home"
             >

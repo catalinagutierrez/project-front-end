@@ -39,6 +39,7 @@
     top: 24vw;
     display: none;
     align-self: center;
+    z-index: 10;
 
     @media screen and (max-width: 700px) {
         display: block;
@@ -49,6 +50,15 @@
       }
   }
 
+  .wd-heart-icon{
+    top:0;
+    right: 0;
+    position: absolute;
+    display: none;
+    margin: 10px;
+    z-index: 10;
+}
+
   &:hover {
     .wd-image {
       opacity: 0.8;
@@ -57,6 +67,11 @@
     button {
       opacity: 0.85;
       display: flex;
+    }
+
+    .wd-heart-icon{
+        opacity: 0.7;
+        display: flex;
     }
   }
 

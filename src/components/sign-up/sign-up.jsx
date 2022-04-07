@@ -86,7 +86,7 @@ const SignUp = () => {
     event.preventDefault();
 
     if (validate()) {
-      dispatch(setCurrentUser(userCredentials));
+      setCurrentUser(dispatch, userCredentials);
       navigate("/home");
     }
   };

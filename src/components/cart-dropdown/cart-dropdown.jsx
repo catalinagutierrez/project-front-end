@@ -24,7 +24,7 @@ const CartDropdown = () => {
       <Button
         onClick={() => {
           navigate("/application");
-          dispatch(toggleCartHidden());
+          toggleCartHidden(dispatch);
         }}
       >
         APPLY

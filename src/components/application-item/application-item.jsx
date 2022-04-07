@@ -23,7 +23,7 @@ const ApplicationItem = ({ item }) => {
       <span className="wd-application-text">{name}</span>
       <div
         className="wd-remove-button"
-        onClick={() => dispatch(removeItem(item))}
+        onClick={() => removeItem(dispatch, item)}
       >
         &#10005;
       </div>

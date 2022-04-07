@@ -16,7 +16,7 @@ const CartIcon = () => {
   );
 
   return (
-    <div className="wd-cart-icon" onClick={() => dispatch(toggleCartHidden())}>
+    <div className="wd-cart-icon" onClick={() => toggleCartHidden(dispatch)}>
       <Icon className="wd-shopping-icon" />
       <span className="wd-item-count">{itemCount}</span>
     </div>

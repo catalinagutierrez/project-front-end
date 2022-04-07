@@ -7,12 +7,22 @@ import { addItem } from "../../redux/cart/cart.actions";
 
 import image from "../../assets/anonymous-pet.jpg";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { addLikedItem } from "../../redux/user/user.actions";
+import { removeLikedItem } from "../../redux/user/user.actions";
+
 import "./category-item.styles.scss";
 
 const CategoryItem = ({ item, category }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
+
+  let liked = false;
+  if (currentUser) {
+    liked = currentUser.likedItems.some((i) => i.id === item.id);
+  }
 
   const name = item.name;
   const gender = item.gender;
@@ -21,14 +31,24 @@ const CategoryItem = ({ item, category }) => {
     imageUrl = item.photos[0].large;
   } catch {}
 
+  const likedButtonHandler = (event) => {
+    event.stopPropagation();
+    liked = !liked;
+    if (liked) {
+      addLikedItem(dispatch, item);
+    } else {
+      removeLikedItem(dispatch, item);
+    }
+  };
+
   return (
     <div
       className="wd-category-item"
-      onClick={() =>
+      onClick={() => {
         navigate(`/details?category=${category}&id=${item.id}`, {
           replace: true,
-        })
-      }
+        });
+      }}
     >
       <div
         className="wd-category-image"
@@ -42,14 +62,27 @@ const CategoryItem = ({ item, category }) => {
       </div>
       <Button
         inverted
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           currentUser
-            ? dispatch(addItem(item))
+            ? addItem(dispatch, item)
             : navigate("/signin", { replace: true });
         }}
       >
         {currentUser ? "ADOPT" : "SIGN IN TO ADOPT"}
       </Button>
+      {currentUser && (
+        <div
+          className="wd-heart-icon"
+          onClick={(event) => likedButtonHandler(event)}
+        >
+          {liked ? (
+            <FontAwesomeIcon icon={faHeart} color="red" size="2x" />
+          ) : (
+            <FontAwesomeIcon icon={faHeart} color="white" size="2x" />
+          )}
+        </div>
+      )}
     </div>
   );
 };
