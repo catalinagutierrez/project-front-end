@@ -10,9 +10,10 @@ import Header from "./components/header/header";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up";
 import ApplicationPage from "./pages/application/application";
 import ProfilePage from "./pages/profile/profile";
+import NotFoundPage from "./pages/not-found/not-found";
+import ItemDetailsPage from "./pages/item-details/item-details";
 
 import "./App.css";
-import ItemDetailsPage from "./pages/item-details/item-details";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
         <Route path="/application" element={<ApplicationPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/details/*" element={<ItemDetailsPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>
   );
