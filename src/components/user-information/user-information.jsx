@@ -14,21 +14,21 @@ const UserInformation = () => {
   const [editable, setEditable] = useState(false);
   const [userCredentials, setCredentials] = useState(currentUser);
   const [error, setError] = useState({});
-  const { displayName, email, password, confirmPassword } = userCredentials;
+  const { name, email, phone, type } = userCredentials;
 
   const validate = () => {
     let errors = {};
     let isValid = true;
 
-    if (!displayName) {
+    if (!name) {
       isValid = false;
-      errors["displayName"] = "Please enter your name.";
+      errors["name"] = "Please enter your name.";
     }
 
-    if (typeof displayName !== "undefined") {
-      if (displayName.length > 20) {
+    if (typeof name !== "undefined") {
+      if (name.length > 20) {
         isValid = false;
-        errors["displayName"] = "Name cannot exceed 20 characters.";
+        errors["name"] = "Name cannot exceed 20 characters.";
       }
     }
 
@@ -47,46 +47,58 @@ const UserInformation = () => {
       }
     }
 
-    if (!password) {
+    if (!phone) {
       isValid = false;
-      errors["password"] = "Please enter a password.";
+      errors["phone"] = "Please enter your phone number.";
     }
 
-    if (typeof password !== "undefined") {
-      if (password.length < 6) {
+    if (typeof phone !== "undefined") {
+      let pattern = new RegExp(
+        /^(\+\d{1,2}\s?)?1?-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
+      );
+      if (!pattern.test(phone)) {
         isValid = false;
-        errors["password"] = "Password must have at least 6 characters";
+        errors["phone"] = "Please enter valid phone number.";
       }
     }
 
-    if (!confirmPassword) {
-      isValid = false;
-      errors["confirmPassword"] = "Please confirm your password.";
-    }
+    // if (!password) {
+    //   isValid = false;
+    //   errors["password"] = "Please enter a password.";
+    // }
 
-    if (password !== confirmPassword) {
-      isValid = false;
-      errors["confirmPassword"] = "Passwords don't match.";
-      errors["password"] = "Passwords don't match.";
-    }
+    // if (typeof password !== "undefined") {
+    //   if (password.length < 6) {
+    //     isValid = false;
+    //     errors["password"] = "Password must have at least 6 characters";
+    //   }
+    // }
+
+    // if (!confirmPassword) {
+    //   isValid = false;
+    //   errors["confirmPassword"] = "Please confirm your password.";
+    // }
+
+    // if (password !== confirmPassword) {
+    //   isValid = false;
+    //   errors["confirmPassword"] = "Passwords don't match.";
+    //   errors["password"] = "Passwords don't match.";
+    // }
 
     setError(errors);
-    console.log(error);
 
     return isValid;
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    console.log(name);
-    console.log(value);
     setCredentials({ ...userCredentials, [name]: value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validate()) {
-      dispatch(setCurrentUser(userCredentials));
+      setCurrentUser(dispatch, userCredentials);
       setEditable(false);
     }
   };
@@ -100,9 +112,11 @@ const UserInformation = () => {
           className="wd-user-img"
         />
         <div className="wd-user-details">
-          <h1 className="wd-profile-title">{displayName}</h1>
+          <h1 className="wd-profile-title">{name}</h1>
           <div className="wd-profile-body">
             <div className="wd-user-information-item">Email: {email}</div>
+            <div className="wd-user-information-item">Phone: {phone}</div>
+            <div className="wd-user-information-item">Account type: {type}</div>
             <Button onClick={() => setEditable(true)}>Edit</Button>
           </div>
         </div>
@@ -120,11 +134,11 @@ const UserInformation = () => {
           <form className="wd-edit-user-form" onSubmit={handleSubmit}>
             <FormInput
               type="text"
-              name="displayName"
-              value={displayName}
+              name="name"
+              value={name}
               onChange={handleChange}
-              label="Display Name"
-              error={error.displayName}
+              label="Name"
+              error={error.name}
             />
             <FormInput
               type="text"
@@ -135,21 +149,29 @@ const UserInformation = () => {
               error={error.email}
             />
             <FormInput
+              type="text"
+              name="phone"
+              value={phone}
+              onChange={handleChange}
+              label="Phone Number"
+              error={error.phone}
+            />
+            {/* <FormInput
               type="password"
               name="password"
-              value={password}
+              value=""
               onChange={handleChange}
-              label="Password"
+              label="New Password"
               error={error.password}
             />
             <FormInput
               type="password"
               name="confirmPassword"
-              value={confirmPassword}
+              value=""
               onChange={handleChange}
               label="Confirm Password"
               error={error.confirmPassword}
-            />
+            /> */}
             <div className="wd-buttons-bar">
               <Button type="submit">SAVE</Button>
               <Button

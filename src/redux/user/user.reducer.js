@@ -29,6 +29,24 @@ const userReducer = (state = INITIAL_STATE, action) => {
         },
       };
 
+    case UserActionTypes.ADD_POSTED_ITEM:
+      return {
+        currentUser: {
+          ...state.currentUser,
+          postedItems: [...state.currentUser.postedItems, action.payload],
+        },
+      };
+
+    case UserActionTypes.REMOVE_POSTED_ITEM:
+      return {
+        currentUser: {
+          ...state.currentUser,
+          postedItems: state.currentUser.postedItems.filter(
+            (item) => item.id !== action.payload.id
+          ),
+        },
+      };
+
     default:
       return state;
   }

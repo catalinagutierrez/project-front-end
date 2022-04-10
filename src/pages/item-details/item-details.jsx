@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import PetInformation from "../../components/pet-information/pet-information";
 
 const ItemDetailsPage = () => {
   const [params] = useSearchParams();
+  const navigate = useNavigate();
   const data = useSelector((state) => state.petData.data);
 
   const category = data.find(
@@ -18,6 +19,7 @@ const ItemDetailsPage = () => {
 
   return (
     <div>
+      <h2 onClick={() => navigate(-2)}>Back</h2>
       {item ? (
         <div className="wd-category-page">
           <PetInformation item={item} />

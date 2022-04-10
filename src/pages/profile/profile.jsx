@@ -5,16 +5,25 @@ import UserInformation from "../../components/user-information/user-information"
 import CategoryPreview from "../../components/category-preview/category-preview";
 
 const ProfilePage = () => {
-  const petData = useSelector((state) => state.petData.data);
-  const likedItems = useSelector((state) => state.user.currentUser.likedItems);
-  console.log(likedItems);
+  const currentUser = useSelector((state) => state.user.currentUser);
+
   return (
     <div className="wd-profile">
       <UserInformation />
+      {currentUser.type === "seller" && (
+        <CategoryPreview
+          items={currentUser.postedItems}
+          title={"placed for adoption"}
+          routeName={"profile"}
+          customAltText="You haven't placed any pets for adoption."
+        />
+      )}
+      {currentUser.type === "buyer" && <div>Following profiles</div>}
       <CategoryPreview
-        items={likedItems}
+        items={currentUser.likedItems}
         title={"saved pets"}
         routeName={"profile"}
+        customAltText="You don't have any saved pets yet."
       />
     </div>
   );

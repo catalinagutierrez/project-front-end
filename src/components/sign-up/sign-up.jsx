@@ -14,42 +14,60 @@ const SignUp = () => {
   let navigate = useNavigate();
   const [error, setError] = useState({});
   const [userCredentials, setCredentials] = useState({
-    displayName: "",
+    name: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
+    type: "",
   });
 
-  const { displayName, email, password, confirmPassword } = userCredentials;
+  const { name, email, phone, password, confirmPassword, type } =
+    userCredentials;
 
   const validate = () => {
     let errors = {};
     let isValid = true;
 
-    if (!displayName) {
+    if (!name) {
       isValid = false;
-      errors["displayName"] = "Please enter your name.";
+      errors["name"] = "Please enter your name.";
     }
 
-    if (typeof displayName !== "undefined") {
-      if (displayName.length > 20) {
+    if (typeof name !== "undefined") {
+      if (name.length > 20) {
         isValid = false;
-        errors["displayName"] = "Name cannot exceed 20 characters.";
+        errors["name"] = "Name cannot exceed 20 characters.";
       }
     }
 
     if (!email) {
       isValid = false;
-      errors["email"] = "Please enter your email Address.";
+      errors["email"] = "Please enter your email address.";
     }
 
     if (typeof email !== "undefined") {
-      var pattern = new RegExp(
+      let pattern = new RegExp(
         /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
       );
       if (!pattern.test(email)) {
         isValid = false;
         errors["email"] = "Please enter valid email address.";
+      }
+    }
+
+    if (!phone) {
+      isValid = false;
+      errors["phone"] = "Please enter your phone number.";
+    }
+
+    if (typeof phone !== "undefined") {
+      let pattern = new RegExp(
+        /^(\+\d{1,2}\s?)?1?-?\.?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/
+      );
+      if (!pattern.test(phone)) {
+        isValid = false;
+        errors["phone"] = "Please enter valid phone number.";
       }
     }
 
@@ -76,8 +94,12 @@ const SignUp = () => {
       errors["password"] = "Passwords don't match.";
     }
 
+    if (type === "") {
+      isValid = false;
+      errors["type"] = "Please select an account type.";
+    }
+
     setError(errors);
-    console.log(error);
 
     return isValid;
   };
@@ -86,6 +108,7 @@ const SignUp = () => {
     event.preventDefault();
 
     if (validate()) {
+      delete userCredentials.confirmPassword;
       setCurrentUser(dispatch, userCredentials);
       navigate("/home");
     }
@@ -105,11 +128,11 @@ const SignUp = () => {
       <form onSubmit={handleSubmit}>
         <FormInput
           type="text"
-          name="displayName"
-          value={displayName}
+          name="name"
+          value={name}
           onChange={handleChange}
-          label="Display Name"
-          error={error.displayName}
+          label="Name"
+          error={error.name}
         />
         <FormInput
           type="text"
@@ -118,6 +141,14 @@ const SignUp = () => {
           onChange={handleChange}
           label="Email"
           error={error.email}
+        />
+        <FormInput
+          type="text"
+          name="phone"
+          value={phone}
+          onChange={handleChange}
+          label="Phone Number"
+          error={error.phone}
         />
         <FormInput
           type="password"
@@ -134,6 +165,30 @@ const SignUp = () => {
           onChange={handleChange}
           label="Confirm Password"
           error={error.confirmPassword}
+        />
+        <FormInput
+          type="radio"
+          name="type"
+          value="buyer"
+          label="I'm looking to adopt!"
+          onChange={handleChange}
+          error={error.type}
+        />
+        <FormInput
+          type="radio"
+          name="type"
+          value="seller"
+          label="I want to put up for adoption!"
+          onChange={handleChange}
+          error={error.type}
+        />
+        <FormInput
+          type="radio"
+          name="type"
+          value="admin"
+          label="This is an administrator account"
+          onChange={handleChange}
+          error={error.type}
         />
         <Button onClick={handleSubmit}>SIGN UP</Button>
       </form>

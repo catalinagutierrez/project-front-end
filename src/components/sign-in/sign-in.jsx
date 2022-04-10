@@ -51,16 +51,14 @@ const SignIn = () => {
           type="email"
           value={email}
           handleChange={handleChange}
-          label="email"
-          //required
+          label="Email"
         />
         <FormInput
           name="password"
           type="password"
           value={password}
           handleChange={handleChange}
-          label="password"
-          //required
+          label="Password"
         />
         <div className="wd-warning">{error}</div>
         <div className="wd-buttons-bar">

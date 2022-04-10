@@ -24,7 +24,7 @@ const CategoryPage = () => {
       ) : (
         <div className="wd-items">
           {items.map((item) => (
-            <CategoryItem key={item.id} item={item} />
+            <CategoryItem key={item.id} item={item} category={category.title} />
           ))}
         </div>
       )}

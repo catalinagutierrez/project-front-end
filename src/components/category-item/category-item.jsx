@@ -28,7 +28,7 @@ const CategoryItem = ({ item, category }) => {
   const gender = item.gender;
   let imageUrl = image;
   try {
-    imageUrl = item.photos[0].large;
+    imageUrl = item.photos[0];
   } catch {}
 
   const likedButtonHandler = (event) => {
@@ -60,17 +60,33 @@ const CategoryItem = ({ item, category }) => {
         <span className="wd-name">{name}</span>
         <span className="wd-gender">{gender}</span>
       </div>
-      <Button
-        inverted
-        onClick={(event) => {
-          event.stopPropagation();
-          currentUser
-            ? addItem(dispatch, item)
-            : navigate("/signin", { replace: true });
-        }}
-      >
-        {currentUser ? "ADOPT" : "SIGN IN TO ADOPT"}
-      </Button>
+      {currentUser ? (
+        currentUser.type === "buyer" && (
+          <Button
+            inverted
+            onClick={(event) => {
+              event.stopPropagation();
+              currentUser
+                ? addItem(dispatch, item)
+                : navigate("/signin", { replace: true });
+            }}
+          >
+            ADOPT
+          </Button>
+        )
+      ) : (
+        <Button
+          inverted
+          onClick={(event) => {
+            event.stopPropagation();
+            currentUser
+              ? addItem(dispatch, item)
+              : navigate("/signin", { replace: true });
+          }}
+        >
+          SIGN IN TO ADOPT
+        </Button>
+      )}
       {currentUser && (
         <div
           className="wd-heart-icon"

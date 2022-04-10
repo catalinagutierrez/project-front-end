@@ -12,6 +12,7 @@ import ApplicationPage from "./pages/application/application";
 import ProfilePage from "./pages/profile/profile";
 import NotFoundPage from "./pages/not-found/not-found";
 import ItemDetailsPage from "./pages/item-details/item-details";
+import PlaceForAdoptionPage from "./pages/place-for-adoption/place-for-adoption";
 
 import "./App.css";
 
@@ -40,10 +41,11 @@ function App() {
         <Route path="/" element={<Navigate replace to="/home" />} />
         <Route exact path="/home" element={<HomePage />} />
         <Route path="/discover/*" element={<DiscoverPage />} />
-        <Route path="/signin" element={<SignInAndSignUpPage />} />
+        <Route path="/login" element={<SignInAndSignUpPage />} />
         <Route path="/application" element={<ApplicationPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/details/*" element={<ItemDetailsPage />} />
+        <Route path="/add" element={<PlaceForAdoptionPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>

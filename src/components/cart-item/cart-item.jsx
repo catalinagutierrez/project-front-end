@@ -8,7 +8,7 @@ const CartItem = ({ item }) => {
   const name = item.name;
   let imageUrl = image;
   try {
-    imageUrl = item.photos[0].large;
+    imageUrl = item.photos[0];
   } catch {}
 
   return (

@@ -30,6 +30,11 @@ const Header = () => {
             <Link className="option" to="/profile">
               PROFILE
             </Link>
+            {currentUser.type === "seller" && (
+              <Link className="wd-option" to="/add">
+                PLACE FOR ADOPTION
+              </Link>
+            )}
             <Link
               className="wd-option"
               onClick={() => {
@@ -42,11 +47,11 @@ const Header = () => {
             </Link>
           </div>
         ) : (
-          <Link className="option" to="/signin">
+          <Link className="option" to="/login">
             SIGN IN
           </Link>
         )}
-        {currentUser && <CartIcon />}
+        {currentUser && currentUser.type === "buyer" && <CartIcon />}
       </div>
       {hidden ? null : <CartDropdown />}
     </div>

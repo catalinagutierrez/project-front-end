@@ -5,16 +5,19 @@ import CategoryItem from "../category-item/category-item";
 
 import "./category-preview.styles.scss";
 
-const CategoryPreview = ({ title, items }) => {
+const CategoryPreview = ({ title, items, customAltText }) => {
   let navigate = useNavigate();
+
+  console.log(items);
 
   return (
     <div>
       {items.length === 0 ? (
         <div>
           <h1>{title.toUpperCase()}</h1>
-          Looks like there are not pets available at the moment. Please come
-          back soon!
+          {customAltText
+            ? customAltText
+            : "Looks like there are not pets available at the moment. Please come back soon!"}
         </div>
       ) : (
         <div className="wd-category-preview">
@@ -31,7 +34,11 @@ const CategoryPreview = ({ title, items }) => {
               .filter((item, idx) => item.photos.length > 0)
               .slice(0, 4)
               .map((item) => (
-                <CategoryItem key={item.id} item={item} category={title} />
+                <CategoryItem
+                  key={item.id}
+                  item={item}
+                  category={item.category}
+                />
               ))}
           </div>
         </div>

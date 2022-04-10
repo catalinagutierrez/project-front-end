@@ -30,10 +30,10 @@ const animalDataReducer = (state = INITIAL_STATE, action) => {
     case PetDataActionTypes.LOAD_DATA:
       return {
         ...state,
-        data: state.data.map((content) =>
-          content.title === action.payload.category
-            ? { ...content, items: [...action.payload.items] }
-            : content
+        data: state.data.map((category) =>
+          category.title === action.payload.category
+            ? { ...category, items: [...action.payload.items] }
+            : category
         ),
       };
 
@@ -41,6 +41,16 @@ const animalDataReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         data: state.data.find((item) => item.id === action.payload),
+      };
+
+    case PetDataActionTypes.ADD_PET:
+      return {
+        ...state,
+        data: state.data.map((category) =>
+          category.title === action.payload.category
+            ? { ...category, items: [...category.items, action.payload] }
+            : category
+        ),
       };
 
     default:
