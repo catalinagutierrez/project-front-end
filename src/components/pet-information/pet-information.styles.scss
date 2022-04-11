@@ -5,12 +5,20 @@
     margin: 60px;
     font-size: x-large;
 
-    p{
-        margin: 8px;
+    hr{
+        margin: 25px 0;
     }
 
     a{
         color: rgb(66, 202, 247)
+    }
+
+    h1{
+        margin: 0;
+    }
+
+    span{
+        font-size: 20px;
     }
   
     @media screen and (max-width: 800px) {
@@ -25,7 +33,7 @@
     margin:auto;
   }
 
-  .wd-pet-details {
+  .wd-pet-information-body {
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -53,3 +61,14 @@
       }
   }
 
+  .wd-pet-detail-group{
+      width: 100%;
+      display: flex;
+      align-content: space-between;
+      overflow: wrap;
+  }
+
+  .wd-pet-detail{
+      margin: auto;
+      padding: 10px;
+  }

@@ -8,8 +8,6 @@ import "./category-preview.styles.scss";
 const CategoryPreview = ({ title, items, customAltText }) => {
   let navigate = useNavigate();
 
-  console.log(items);
-
   return (
     <div>
       {items.length === 0 ? (

@@ -112,13 +112,13 @@ const UserInformation = () => {
           className="wd-user-img"
         />
         <div className="wd-user-details">
-          <h1 className="wd-profile-title">{name}</h1>
+          <h1>{name}</h1>
           <div className="wd-profile-body">
             <div className="wd-user-information-item">Email: {email}</div>
             <div className="wd-user-information-item">Phone: {phone}</div>
             <div className="wd-user-information-item">Account type: {type}</div>
-            <Button onClick={() => setEditable(true)}>Edit</Button>
           </div>
+          <Button onClick={() => setEditable(true)}>Edit</Button>
         </div>
       </div>
     );

@@ -10,6 +10,12 @@ const ProfilePage = () => {
   return (
     <div className="wd-profile">
       <UserInformation />
+      <CategoryPreview
+        items={currentUser.likedItems}
+        title={"saved pets"}
+        routeName={"profile"}
+        customAltText="You don't have any saved pets yet."
+      />
       {currentUser.type === "seller" && (
         <CategoryPreview
           items={currentUser.postedItems}
@@ -19,12 +25,6 @@ const ProfilePage = () => {
         />
       )}
       {currentUser.type === "buyer" && <div>Following profiles</div>}
-      <CategoryPreview
-        items={currentUser.likedItems}
-        title={"saved pets"}
-        routeName={"profile"}
-        customAltText="You don't have any saved pets yet."
-      />
     </div>
   );
 };

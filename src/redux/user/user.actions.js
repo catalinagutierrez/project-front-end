@@ -2,10 +2,11 @@ import { UserActionTypes } from "./user.types";
 
 export const setCurrentUser = (dispatch, user) => {
   //temporary. This will be loaded from the db
-  if (user) {
+  if (!user) {
     user.likedItems = [];
     user.postedItems = [];
     user.following = [];
+    user.id = Date.now();
   }
   dispatch({
     type: UserActionTypes.SET_CURRENT_USER,

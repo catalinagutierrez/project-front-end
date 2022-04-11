@@ -7,13 +7,14 @@ import Button from "../button/button";
 
 import "./place-for-adoption-form.styles.scss";
 import { addPostedItem } from "../../redux/user/user.actions";
-import { addPet } from "../../redux/pet-data/pet-data.actions";
+import { addPet, getbreeds } from "../../redux/pet-data/pet-data.actions";
 
 const PlaceForAdoptionForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
   const [error, setError] = useState({});
+  const [breeds, setBreeds] = useState(["Select a breed"]);
   const [itemInformation, setItemInformation] = useState({
     id: Date.now(),
     name: "",
@@ -25,6 +26,7 @@ const PlaceForAdoptionForm = () => {
     description: "",
     url: null,
     contact: {
+      userId: currentUser.id,
       email: currentUser.email,
       phone: currentUser.phone,
     },
@@ -117,9 +119,15 @@ const PlaceForAdoptionForm = () => {
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = async (event) => {
     const { name, value } = event.target;
     setItemInformation({ ...itemInformation, [name]: value });
+
+    // if there is a change in species, reload the breeds list
+    if (name === "species") {
+      const response = await getbreeds(value);
+      setBreeds(response);
+    }
   };
 
   return (
@@ -222,14 +230,13 @@ const PlaceForAdoptionForm = () => {
           label="Description"
           error={error.description}
         />
-        <FormInput
-          type="text"
-          name="breed"
-          value={breed}
-          onChange={handleChange}
-          label="Breed"
-          error={error.breed}
-        />
+        <select className="wd-dropdown" name="breed" onChange={handleChange}>
+          {breeds.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
         <Button onClick={handleSubmit}>CONFIRM</Button>
       </form>
     </div>

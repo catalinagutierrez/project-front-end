@@ -1,11 +1,15 @@
+$sub-color: grey;
+$main-color: black;
+
 .wd-place-for-adoption {
     display: flex;
     flex-direction: column;
-    width: 380px;
+    width: 50%;
     text-align: center;
+    margin-top: 50px;
   
     @media screen and (max-width: 800px) {
-      margin-top: 50px;
+        width: 80%;
     }
 
     .wd-radio-buttons{
@@ -20,6 +24,25 @@
         top: -7px;
         font-size: 18px;
       }
+
+    button{
+        margin-top: 40px;
+        margin-left: 25%;
+    }
 }
 
+.wd-dropdown{
+    -webkit-appearance: none;
+    background: none;
+    background-color: white;
+    font-size: 18px;
+    font-family: "Open Sans Condensed";
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    border-bottom: 1px solid $sub-color;
+    margin: 10px 0;
+}
 

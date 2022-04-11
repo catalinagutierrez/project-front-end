@@ -17,5 +17,6 @@ a {
 }
 
 hr {
-    width:60%;
+    width:100%;
+    opacity: 0.5;
 }

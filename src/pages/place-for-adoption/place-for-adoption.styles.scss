@@ -1,11 +1,6 @@
 .wd-place-for-adoption-page {
-  width: 850px;
+  width: 100%;
   display: flex;
   justify-content: center;
   margin: 30px auto;
-
-  @media screen and (max-width: 800px) {
-    flex-direction: column;
-    width: 100%;
-  }
 }

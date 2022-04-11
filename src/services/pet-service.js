@@ -1,7 +1,5 @@
 import axios from "axios";
 
-let count = 0;
-
 let axiosInstance = axios.create({
   baseURL: `https://api.petfinder.com/v2/`,
   headers: {
@@ -69,8 +67,13 @@ const getPetData = async (params) => {
   });
 };
 
+const getBreeds = async (type) => {
+  return axiosInstance.get(`types/${type}/breeds`);
+};
+
 const PetService = {
   getPetData,
+  getBreeds,
 };
 
 export default PetService;

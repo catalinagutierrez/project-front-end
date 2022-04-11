@@ -49,3 +49,14 @@ export const addPet = (dispatch, item) => {
     payload: item,
   });
 };
+
+export const getbreeds = async (type) => {
+  let breeds = [];
+  try {
+    const response = await PetService.getBreeds(type);
+    response.data.breeds.map((breed) => breeds.push(breed.name));
+  } catch (error) {
+    console.log(error);
+  }
+  return breeds;
+};
