@@ -68,7 +68,7 @@ const CategoryItem = ({ item, category }) => {
               event.stopPropagation();
               currentUser
                 ? addItem(dispatch, item)
-                : navigate("/signin", { replace: true });
+                : navigate("/login", { replace: true });
             }}
           >
             ADOPT
@@ -81,7 +81,7 @@ const CategoryItem = ({ item, category }) => {
             event.stopPropagation();
             currentUser
               ? addItem(dispatch, item)
-              : navigate("/signin", { replace: true });
+              : navigate("/login", { replace: true });
           }}
         >
           SIGN IN TO ADOPT
