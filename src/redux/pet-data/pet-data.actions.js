@@ -8,7 +8,7 @@ export const getPetData = async (dispatch, category, params) => {
     const response = await PetService.getPetData(params);
 
     // transform data to fit the schema used throughout the app
-    response.data.animals.map((item) => {
+    response.data.animals.forEach((item) => {
       let photos = [];
       if (item.photos !== []) {
         item.photos.map((photo) => photos.push(photo.large));
