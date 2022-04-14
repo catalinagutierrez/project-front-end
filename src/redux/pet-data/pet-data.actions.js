@@ -3,6 +3,7 @@ import PetService from "../../services/pet-service";
 
 // function that retrieves data for a given type of pet
 export const getPetData = async (dispatch, category, params) => {
+  console.log(process.env.REACT_APP_API_KEY);
   try {
     let data = [];
     const response = await PetService.getPetData(params);
