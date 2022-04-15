@@ -13,6 +13,7 @@ import ProfilePage from "./pages/profile/profile";
 import NotFoundPage from "./pages/not-found/not-found";
 import ItemDetailsPage from "./pages/item-details/item-details";
 import PlaceForAdoptionPage from "./pages/place-for-adoption/place-for-adoption";
+import SearchPage from "./pages/search/search";
 
 import "./App.css";
 
@@ -20,14 +21,14 @@ function App() {
   const dispatch = useDispatch();
 
   const loadData = useCallback(async () => {
-    try {
-      await getPetData(dispatch, "cats", { type: "cat", age: "adult" });
-    } catch (err) {
-      await getPetData(dispatch, "cats", { type: "cat", age: "adult" });
+    for (let attempts = 0; attempts < 3; attempts++) {
+      try {
+        await getPetData(dispatch);
+        break;
+      } catch (error) {
+        console.log(error);
+      }
     }
-    await getPetData(dispatch, "kittens", { type: "cat", age: "baby" });
-    await getPetData(dispatch, "dogs", { type: "dog", age: "adult" });
-    await getPetData(dispatch, "puppies", { type: "dog", age: "baby" });
   }, [dispatch]);
 
   useEffect(() => {
@@ -46,6 +47,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/details/*" element={<ItemDetailsPage />} />
         <Route path="/add" element={<PlaceForAdoptionPage />} />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>

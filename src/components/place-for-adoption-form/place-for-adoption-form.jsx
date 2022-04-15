@@ -143,6 +143,7 @@ const PlaceForAdoptionForm = () => {
           error={error.name}
         />
         <div className="wd-radio-buttons">
+          <h3>Species</h3>
           <FormInput
             type="radio"
             name="species"
@@ -161,6 +162,7 @@ const PlaceForAdoptionForm = () => {
           />
         </div>
         <div className="wd-radio-buttons">
+          <h3>Age</h3>
           <FormInput
             type="radio"
             name="age"
@@ -172,13 +174,30 @@ const PlaceForAdoptionForm = () => {
           <FormInput
             type="radio"
             name="age"
+            value="young"
+            label="Young"
+            onChange={handleChange}
+            error={error.age}
+          />
+          <FormInput
+            type="radio"
+            name="age"
             value="adult"
             label="Adult"
             onChange={handleChange}
             error={error.age}
           />
+          <FormInput
+            type="radio"
+            name="age"
+            value="senior"
+            label="Senior"
+            onChange={handleChange}
+            error={error.age}
+          />
         </div>
         <div className="wd-radio-buttons">
+          <h3>Gender</h3>
           <FormInput
             type="radio"
             name="gender"
@@ -195,8 +214,17 @@ const PlaceForAdoptionForm = () => {
             onChange={handleChange}
             error={error.gender}
           />
+          <FormInput
+            type="radio"
+            name="gender"
+            value="unknown"
+            label="Unknown"
+            onChange={handleChange}
+            error={error.gender}
+          />
         </div>
         <div className="wd-radio-buttons">
+          <h3>Size</h3>
           <FormInput
             type="radio"
             name="size"
@@ -218,6 +246,14 @@ const PlaceForAdoptionForm = () => {
             name="size"
             value="large"
             label="Large"
+            onChange={handleChange}
+            error={error.size}
+          />
+          <FormInput
+            type="radio"
+            name="size"
+            value="xlarge"
+            label="XLarge"
             onChange={handleChange}
             error={error.size}
           />

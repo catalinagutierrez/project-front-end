@@ -1,0 +1,24 @@
+.wd-search-page{
+    margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+
+  input[type="search"] {
+    width: 60%;
+    align-self: center;
+    font-family: "Open Sans Condensed";
+    font-size: 16px;
+    padding: 10px 20px;
+    border: 1px solid gray;
+  }
+
+  .wd-search-results {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+
+    & .wd-collection-item {
+      margin-bottom: 30px;
+    }
+  }
+}

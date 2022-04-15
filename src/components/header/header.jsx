@@ -22,6 +22,9 @@ const Header = () => {
         <Logo className="wd-logo" />
       </Link>
       <div className="wd-options">
+        <Link className="wd-option" to="/search">
+          SEARCH
+        </Link>
         <Link className="wd-option" to="/discover">
           DISCOVER
         </Link>

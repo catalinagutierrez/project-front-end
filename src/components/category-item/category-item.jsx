@@ -14,7 +14,7 @@ import { removeLikedItem } from "../../redux/user/user.actions";
 
 import "./category-item.styles.scss";
 
-const CategoryItem = ({ item, category }) => {
+const CategoryItem = ({ item }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -45,7 +45,7 @@ const CategoryItem = ({ item, category }) => {
     <div
       className="wd-category-item"
       onClick={() => {
-        navigate(`/details?category=${category}&id=${item.id}`, {
+        navigate(`/details?id=${item.id}`, {
           replace: true,
         });
       }}

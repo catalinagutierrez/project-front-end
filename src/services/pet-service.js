@@ -58,11 +58,10 @@ const refreshToken = async () => {
   localStorage.setItem("token", JSON.stringify(token.data));
 };
 
-const getPetData = async (params) => {
+const getPetData = async () => {
   return axiosInstance.get("animals", {
     params: {
-      type: `${params.type}`,
-      age: `${params.age}`,
+      limit: "60",
     },
   });
 };
@@ -71,9 +70,23 @@ const getBreeds = async (type) => {
   return axiosInstance.get(`types/${type}/breeds`);
 };
 
+const getPetDetails = async (id) => {
+  return axiosInstance.get(`animals/${id}`);
+};
+
+const searchByName = async (queryString) => {
+  return axiosInstance.get("animals", {
+    params: {
+      name: `${queryString}`,
+    },
+  });
+};
+
 const PetService = {
   getPetData,
   getBreeds,
+  getPetDetails,
+  searchByName,
 };
 
 export default PetService;

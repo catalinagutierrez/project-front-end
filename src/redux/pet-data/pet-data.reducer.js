@@ -1,28 +1,7 @@
 import PetDataActionTypes from "./pet-data.types";
 
 const INITIAL_STATE = {
-  data: [
-    {
-      id: "cats",
-      title: "cats",
-      items: [],
-    },
-    {
-      id: "dogs",
-      title: "dogs",
-      items: [],
-    },
-    {
-      id: "kittens",
-      title: "kittens",
-      items: [],
-    },
-    {
-      id: "puppies",
-      title: "puppies",
-      items: [],
-    },
-  ],
+  data: [],
 };
 
 const animalDataReducer = (state = INITIAL_STATE, action) => {
@@ -30,11 +9,7 @@ const animalDataReducer = (state = INITIAL_STATE, action) => {
     case PetDataActionTypes.LOAD_DATA:
       return {
         ...state,
-        data: state.data.map((category) =>
-          category.title === action.payload.category
-            ? { ...category, items: [...action.payload.items] }
-            : category
-        ),
+        data: [...state.data, ...action.payload],
       };
 
     case PetDataActionTypes.GET_PET_DETAILS:
@@ -46,11 +21,7 @@ const animalDataReducer = (state = INITIAL_STATE, action) => {
     case PetDataActionTypes.ADD_PET:
       return {
         ...state,
-        data: state.data.map((category) =>
-          category.title === action.payload.category
-            ? { ...category, items: [...category.items, action.payload] }
-            : category
-        ),
+        data: [...state.data, action.payload],
       };
 
     default:
