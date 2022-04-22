@@ -1,7 +1,7 @@
 // prevents duplicates in the cart
 export const addItemToCart = (cartItems, cartItemToAdd) => {
   const existingCartItem = cartItems.find(
-    (cartitem) => cartitem.id === cartItemToAdd.id
+    (cartitem) => cartitem._id === cartItemToAdd._id
   );
 
   if (existingCartItem) {
@@ -12,5 +12,5 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
 };
 
 export const removeItemFromCart = (cartItems, cartItemToRemove) => {
-  return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
+  return cartItems.filter((cartItem) => cartItem._id !== cartItemToRemove._id);
 };

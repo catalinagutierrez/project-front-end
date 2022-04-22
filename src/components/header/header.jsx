@@ -6,7 +6,7 @@ import { ReactComponent as Logo } from "../../assets/cat.svg";
 import CartIcon from "../cart-icon/cart-icon";
 import CartDropdown from "../cart-dropdown/cart-dropdown";
 
-import { setCurrentUser } from "../../redux/user/user.actions";
+import { signOut } from "../../redux/user/user.actions";
 import { clearCart } from "../../redux/cart/cart.actions";
 
 import "./header.styles.scss";
@@ -30,7 +30,7 @@ const Header = () => {
         </Link>
         {currentUser ? (
           <div>
-            <Link className="option" to="/profile">
+            <Link className="wd-option" to="/profile">
               PROFILE
             </Link>
             {currentUser.type === "seller" && (
@@ -38,11 +38,16 @@ const Header = () => {
                 PLACE FOR ADOPTION
               </Link>
             )}
+            {currentUser.type === "admin" && (
+              <Link className="wd-option" to="/createAccount">
+                CREATE ACCOUNT
+              </Link>
+            )}
             <Link
               className="wd-option"
               onClick={() => {
                 clearCart(dispatch);
-                setCurrentUser(dispatch, null);
+                signOut(dispatch);
               }}
               to="/home"
             >
@@ -50,7 +55,7 @@ const Header = () => {
             </Link>
           </div>
         ) : (
-          <Link className="option" to="/login">
+          <Link className="wd-option" to="/login">
             SIGN IN
           </Link>
         )}

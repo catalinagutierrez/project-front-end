@@ -70,7 +70,7 @@ const getBreeds = async (type) => {
   return axiosInstance.get(`types/${type}/breeds`);
 };
 
-const getPetDetails = async (id) => {
+const findPetById = async (id) => {
   return axiosInstance.get(`animals/${id}`);
 };
 
@@ -85,7 +85,7 @@ const searchByName = async (queryString) => {
 const PetService = {
   getPetData,
   getBreeds,
-  getPetDetails,
+  findPetById,
   searchByName,
 };
 

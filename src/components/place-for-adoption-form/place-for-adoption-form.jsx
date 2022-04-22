@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
 
-import "./place-for-adoption-form.styles.scss";
-import { addPostedItem } from "../../redux/user/user.actions";
 import { addPet, getbreeds } from "../../redux/pet-data/pet-data.actions";
+import { updateUser } from "../../redux/user/user.actions";
+
+import "./place-for-adoption-form.styles.scss";
 
 const PlaceForAdoptionForm = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,6 @@ const PlaceForAdoptionForm = () => {
   const [error, setError] = useState({});
   const [breeds, setBreeds] = useState(["Select a breed"]);
   const [itemInformation, setItemInformation] = useState({
-    id: Date.now(),
     name: "",
     species: "",
     age: "",
@@ -24,16 +24,15 @@ const PlaceForAdoptionForm = () => {
     size: "",
     breed: "",
     description: "",
-    url: null,
+    url: "",
     contact: {
-      userId: currentUser.id,
+      userId: currentUser._id,
       email: currentUser.email,
       phone: currentUser.phone,
     },
     photos: [
       "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/55262200/1/?bust=1649605022&width=600",
     ],
-    category: "",
   });
 
   const { name, species, age, gender, size, breed, description } =
@@ -90,7 +89,7 @@ const PlaceForAdoptionForm = () => {
     return isValid;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (validate()) {
@@ -113,9 +112,16 @@ const PlaceForAdoptionForm = () => {
         itemInformation.category = "dogs";
       }
 
-      addPet(dispatch, itemInformation);
-      addPostedItem(dispatch, itemInformation);
-      navigate("/profile", { replace: true });
+      try {
+        const postedItem = await addPet(dispatch, itemInformation);
+        updateUser(dispatch, {
+          ...currentUser,
+          postedItems: [...currentUser.postedItems, postedItem._id],
+        });
+        navigate("/profile", { replace: true });
+      } catch (error) {
+        alert(error);
+      }
     }
   };
 

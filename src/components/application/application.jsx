@@ -63,7 +63,7 @@ const Application = () => {
       alert(
         "We have receieved your application and will get back to you soon. Thank you!"
       );
-      dispatch(clearCart());
+      clearCart(dispatch);
       navigate("/home");
     }
   };

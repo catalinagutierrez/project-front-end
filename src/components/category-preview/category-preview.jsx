@@ -28,16 +28,13 @@ const CategoryPreview = ({ title, items, customAltText }) => {
             {title.toUpperCase()}
           </h1>
           <div className="wd-preview">
-            {items
-              .filter((item, idx) => item.photos.length > 0)
-              .slice(0, 4)
-              .map((item) => (
-                <CategoryItem
-                  key={item.id}
-                  item={item}
-                  category={item.category}
-                />
-              ))}
+            {items.slice(0, 4).map((item) => (
+              <CategoryItem
+                key={item._id}
+                item={item}
+                category={item.category}
+              />
+            ))}
           </div>
         </div>
       )}

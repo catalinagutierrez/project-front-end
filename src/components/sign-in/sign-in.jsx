@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
 
-import { setCurrentUser } from "../../redux/user/user.actions";
+import { signIn } from "../../redux/user/user.actions";
 
 import "./sign-in.styles.scss";
 
@@ -24,7 +24,7 @@ const SignIn = () => {
     event.preventDefault();
 
     try {
-      dispatch(setCurrentUser(userCredentials));
+      await signIn(dispatch, userCredentials);
       setCredentials({ email: "", password: "" });
       navigate("/home");
     } catch (error) {

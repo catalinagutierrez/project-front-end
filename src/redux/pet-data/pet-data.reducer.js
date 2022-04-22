@@ -15,7 +15,7 @@ const animalDataReducer = (state = INITIAL_STATE, action) => {
     case PetDataActionTypes.GET_PET_DETAILS:
       return {
         ...state,
-        data: state.data.find((item) => item.id === action.payload),
+        data: state.data.find((item) => item._id === action.payload),
       };
 
     case PetDataActionTypes.ADD_PET:

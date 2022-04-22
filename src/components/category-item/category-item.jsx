@@ -1,16 +1,12 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import Button from "../button/button";
 import { addItem } from "../../redux/cart/cart.actions";
-
 import image from "../../assets/anonymous-pet.jpg";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { addLikedItem } from "../../redux/user/user.actions";
-import { removeLikedItem } from "../../redux/user/user.actions";
+import { updateUser } from "../../redux/user/user.actions";
 
 import "./category-item.styles.scss";
 
@@ -21,7 +17,7 @@ const CategoryItem = ({ item }) => {
 
   let liked = false;
   if (currentUser) {
-    liked = currentUser.likedItems.some((i) => i.id === item.id);
+    liked = currentUser.likedItems.some((i) => i === item._id);
   }
 
   const name = item.name;
@@ -35,9 +31,15 @@ const CategoryItem = ({ item }) => {
     event.stopPropagation();
     liked = !liked;
     if (liked) {
-      addLikedItem(dispatch, item);
+      updateUser(dispatch, {
+        ...currentUser,
+        likedItems: [...currentUser.likedItems, item._id],
+      });
     } else {
-      removeLikedItem(dispatch, item);
+      updateUser(dispatch, {
+        ...currentUser,
+        likedItems: [...currentUser.likedItems.filter((i) => i !== item._id)],
+      });
     }
   };
 
@@ -45,7 +47,7 @@ const CategoryItem = ({ item }) => {
     <div
       className="wd-category-item"
       onClick={() => {
-        navigate(`/details?id=${item.id}`, {
+        navigate(`/details?id=${item._id}`, {
           replace: true,
         });
       }}

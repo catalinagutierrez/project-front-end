@@ -18,7 +18,7 @@ const CartDropdown = () => {
     <div className="wd-cart-dropdown">
       <div className="wd-cart-items">
         {cart.cartItems.map((cartItem) => (
-          <CartItem key={cartItem.id} item={cartItem} />
+          <CartItem key={cartItem._id} item={cartItem} />
         ))}
       </div>
       <Button

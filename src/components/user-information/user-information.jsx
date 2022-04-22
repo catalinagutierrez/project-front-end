@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Button from "../button/button";
 import FormInput from "../form-input/form-input";
 
-import { setCurrentUser } from "../../redux/user/user.actions";
+import { updateUser } from "../../redux/user/user.actions";
 
 import "./user-information.styles.scss";
 
@@ -98,7 +98,7 @@ const UserInformation = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validate()) {
-      setCurrentUser(dispatch, userCredentials);
+      updateUser(dispatch, userCredentials);
       setEditable(false);
     }
   };

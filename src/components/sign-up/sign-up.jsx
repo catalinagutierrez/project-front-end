@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
 
-import { setCurrentUser } from "../../redux/user/user.actions";
+import { signUp } from "../../redux/user/user.actions";
 
 import "./sign-up.styles.scss";
 
@@ -104,13 +104,17 @@ const SignUp = () => {
     return isValid;
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (validate()) {
-      delete userCredentials.confirmPassword;
-      setCurrentUser(dispatch, userCredentials);
-      navigate("/home");
+      try {
+        await signUp(dispatch, userCredentials);
+        navigate("/home");
+      } catch (error) {
+        let errors = { email: "Email already in use." };
+        setError(errors);
+      }
     }
   };
 
@@ -121,10 +125,12 @@ const SignUp = () => {
 
   return (
     <div className="wd-sign-up">
-      <h2 className="wd-sign-up-title">I do not have a account</h2>
-      <span className="wd-sign-up-span">
-        Sign up with your email and password
-      </span>
+      <div>
+        <h2 className="wd-sign-up-title">I do not have a account</h2>
+        <span className="wd-sign-up-span">
+          Sign up with your email and password
+        </span>
+      </div>
       <form onSubmit={handleSubmit}>
         <FormInput
           type="text"
@@ -166,6 +172,7 @@ const SignUp = () => {
           label="Confirm Password"
           error={error.confirmPassword}
         />
+
         <FormInput
           type="radio"
           name="type"
@@ -182,14 +189,7 @@ const SignUp = () => {
           onChange={handleChange}
           error={error.type}
         />
-        <FormInput
-          type="radio"
-          name="type"
-          value="admin"
-          label="This is an administrator account"
-          onChange={handleChange}
-          error={error.type}
-        />
+
         <Button onClick={handleSubmit}>SIGN UP</Button>
       </form>
     </div>

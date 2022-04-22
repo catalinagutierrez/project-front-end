@@ -41,7 +41,7 @@ const SearchPage = () => {
         {query.results.length > 0
           ? query.results.map((item) => (
               <CategoryItem
-                key={item.id}
+                key={item._id}
                 item={item}
                 category={item.category}
               />

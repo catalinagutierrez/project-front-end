@@ -14,7 +14,7 @@ const ItemDetailsPage = () => {
   useEffect(() => {
     // look for the data in the local db
     const result = localData.find(
-      (item) => item.id === parseInt(params.get("id"))
+      (item) => item._id === parseInt(params.get("id"))
     );
 
     // if not found, request the info from the API

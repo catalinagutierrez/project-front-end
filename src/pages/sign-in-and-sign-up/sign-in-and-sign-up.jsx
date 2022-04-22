@@ -7,7 +7,7 @@ import "./sign-in-and-sign-up.styles.scss";
 
 const SignInAndSignUpPage = () => (
   <div className="wd-sign-in-and-sign-up">
-    <SignIn />
+    <SignIn admin={false} />
     <SignUp />
   </div>
 );

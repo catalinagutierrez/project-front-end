@@ -13,7 +13,10 @@ import ProfilePage from "./pages/profile/profile";
 import NotFoundPage from "./pages/not-found/not-found";
 import ItemDetailsPage from "./pages/item-details/item-details";
 import PlaceForAdoptionPage from "./pages/place-for-adoption/place-for-adoption";
+import CreateAccountPage from "./pages/create-account/create-account";
+import PrivacyPolicyPage from "./pages/privacy-policy/privacy-policy";
 import SearchPage from "./pages/search/search";
+import Footer from "./components/footer/footer";
 
 import "./App.css";
 
@@ -48,8 +51,11 @@ function App() {
         <Route path="/details/*" element={<ItemDetailsPage />} />
         <Route path="/add" element={<PlaceForAdoptionPage />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/createAccount" element={<CreateAccountPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

@@ -26,7 +26,7 @@ const ApplicationPage = () => {
         </div>
       </div>
       {cartItems.map((cartItem) => (
-        <ApplicationItem key={cartItem.id} item={cartItem} />
+        <ApplicationItem key={cartItem._id} item={cartItem} />
       ))}
       {cartItems.length > 0 ? (
         showApplyButton && (

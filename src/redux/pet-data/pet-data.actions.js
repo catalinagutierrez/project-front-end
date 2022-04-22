@@ -1,10 +1,14 @@
 import PetDataActionTypes from "./pet-data.types";
 import PetService from "../../services/pet-service";
+import LocalPetService from "../../services/local-pet-service";
 
 // function that retrieves data for a given type of pet
 export const getPetData = async (dispatch) => {
+  let data = [];
+  //first load the local items
+
+  //then load the first 60 matching results from the api
   try {
-    let data = [];
     const response = await PetService.getPetData();
 
     // transform data to fit the schema used throughout the app
@@ -17,7 +21,7 @@ export const getPetData = async (dispatch) => {
         let photos = [];
         item.photos.map((photo) => photos.push(photo.large));
         data.push({
-          id: item.id,
+          _id: item.id,
           name: item.name,
           species: item.species.toLowerCase(),
           age: item.age.toLowerCase(),
@@ -40,15 +44,24 @@ export const getPetData = async (dispatch) => {
 };
 
 export const getPetDetails = async (id) => {
+  //first try to fetch the details from the local db
   try {
-    const response = await PetService.getPetDetails(id);
+    const response = await LocalPetService.findPetById(id);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+
+  //if not found then try fetching from the api
+  try {
+    const response = await PetService.findPetById(id);
     const item = response.data.animal;
     let photos = [];
     if (item.photos !== []) {
       item.photos.map((photo) => photos.push(photo.large));
     }
     return {
-      id: item.id,
+      _id: item.id,
       name: item.name,
       species: item.species.toLowerCase(),
       age: item.age.toLowerCase(),
@@ -62,15 +75,16 @@ export const getPetDetails = async (id) => {
     };
   } catch (error) {
     console.log(error);
-    return null;
   }
 };
 
-export const addPet = (dispatch, item) => {
+export const addPet = async (dispatch, item) => {
+  const newPet = await LocalPetService.createPet(item);
   dispatch({
     type: PetDataActionTypes.ADD_PET,
-    payload: item,
+    payload: newPet[0],
   });
+  return newPet[0];
 };
 
 export const getbreeds = async (type) => {
@@ -100,7 +114,7 @@ export const searchByName = async (queryString) => {
         item.photos.map((photo) => photos.push(photo.large));
 
         results.push({
-          id: item.id,
+          _id: item.id,
           name: item.name,
           species: item.species.toLowerCase(),
           age: item.age.toLowerCase(),

@@ -1,0 +1,17 @@
+.wd-footer{
+  height: 150px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 50px;
+
+  @media screen and (max-width: 800px) {
+    width: 80%;
+  }
+
+  .wd-option {
+    margin:auto;
+    padding: 10px 15px;
+  }
+}
