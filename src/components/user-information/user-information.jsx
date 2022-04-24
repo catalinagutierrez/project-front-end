@@ -13,8 +13,9 @@ const UserInformation = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const [editable, setEditable] = useState(false);
   const [userCredentials, setCredentials] = useState(currentUser);
+  const [confirmPassword, setConfirmPassword] = useState(currentUser.password);
   const [error, setError] = useState({});
-  const { name, email, phone, type } = userCredentials;
+  const { name, email, phone, type, password } = userCredentials;
 
   const validate = () => {
     let errors = {};
@@ -62,28 +63,28 @@ const UserInformation = () => {
       }
     }
 
-    // if (!password) {
-    //   isValid = false;
-    //   errors["password"] = "Please enter a password.";
-    // }
+    if (!password) {
+      isValid = false;
+      errors["password"] = "Please enter a password.";
+    }
 
-    // if (typeof password !== "undefined") {
-    //   if (password.length < 6) {
-    //     isValid = false;
-    //     errors["password"] = "Password must have at least 6 characters";
-    //   }
-    // }
+    if (typeof password !== "undefined") {
+      if (password.length < 6) {
+        isValid = false;
+        errors["password"] = "Password must have at least 6 characters";
+      }
+    }
 
-    // if (!confirmPassword) {
-    //   isValid = false;
-    //   errors["confirmPassword"] = "Please confirm your password.";
-    // }
+    if (!confirmPassword) {
+      isValid = false;
+      errors["confirmPassword"] = "Please confirm your password.";
+    }
 
-    // if (password !== confirmPassword) {
-    //   isValid = false;
-    //   errors["confirmPassword"] = "Passwords don't match.";
-    //   errors["password"] = "Passwords don't match.";
-    // }
+    if (password !== confirmPassword) {
+      isValid = false;
+      errors["confirmPassword"] = "Passwords don't match.";
+      errors["password"] = "Passwords don't match.";
+    }
 
     setError(errors);
 
@@ -92,7 +93,11 @@ const UserInformation = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setCredentials({ ...userCredentials, [name]: value });
+    if (name === "confirmPassword") {
+      setConfirmPassword(value);
+    } else {
+      setCredentials({ ...userCredentials, [name]: value });
+    }
   };
 
   const handleSubmit = (event) => {
@@ -116,7 +121,6 @@ const UserInformation = () => {
           <div className="wd-profile-body">
             <div className="wd-user-information-item">Email: {email}</div>
             <div className="wd-user-information-item">Phone: {phone}</div>
-            <div className="wd-user-information-item">Account type: {type}</div>
           </div>
           <Button onClick={() => setEditable(true)}>Edit</Button>
         </div>
@@ -156,10 +160,10 @@ const UserInformation = () => {
               label="Phone Number"
               error={error.phone}
             />
-            {/* <FormInput
+            <FormInput
               type="password"
               name="password"
-              value=""
+              value={password}
               onChange={handleChange}
               label="New Password"
               error={error.password}
@@ -167,11 +171,11 @@ const UserInformation = () => {
             <FormInput
               type="password"
               name="confirmPassword"
-              value=""
+              value={confirmPassword}
               onChange={handleChange}
               label="Confirm Password"
               error={error.confirmPassword}
-            /> */}
+            />
             <div className="wd-buttons-bar">
               <Button type="submit">SAVE</Button>
               <Button
