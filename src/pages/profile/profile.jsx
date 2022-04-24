@@ -44,7 +44,7 @@ const ProfilePage = () => {
         }
       });
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="wd-profile">
