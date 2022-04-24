@@ -9,6 +9,7 @@ import CategoryPreview from "../../components/category-preview/category-preview"
 const ProfilePage = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const [likedItems, setLikedItems] = useState([]);
+  const [adoptedItems, setAdoptedItems] = useState([]);
   const [postedItems, setPostedItems] = useState([]);
 
   useEffect(() => {
@@ -17,7 +18,7 @@ const ProfilePage = () => {
       return response;
     };
 
-    if (currentUser.type === "buyer" || currentUser.type === "seller") {
+    if (currentUser.type === "buyer") {
       // load liked items
       currentUser.likedItems.forEach(async (id) => {
         const item = await fetch(id);
@@ -25,10 +26,17 @@ const ProfilePage = () => {
           setLikedItems((likedItems) => [...likedItems, item]);
         }
       });
+      // load adopted items
+      currentUser.adoptedItems.forEach(async (id) => {
+        const item = await fetch(id);
+        if (item) {
+          setAdoptedItems((adoptedItems) => [...adoptedItems, item]);
+        }
+      });
     }
 
     if (currentUser.type === "seller") {
-      // load liked items
+      // load posted items
       currentUser.postedItems.forEach(async (id) => {
         const item = await fetch(id);
         if (item) {
@@ -41,14 +49,6 @@ const ProfilePage = () => {
   return (
     <div className="wd-profile">
       <UserInformation />
-      {currentUser.type !== "admin" && (
-        <CategoryPreview
-          items={likedItems}
-          title={"saved pets"}
-          routeName={"profile"}
-          customAltText="You don't have any saved pets yet."
-        />
-      )}
       {currentUser.type === "seller" && (
         <CategoryPreview
           items={postedItems}
@@ -57,7 +57,23 @@ const ProfilePage = () => {
           customAltText="You haven't placed any pets for adoption."
         />
       )}
-      {currentUser.type === "buyer" && <div>Following profiles</div>}
+      {currentUser.type === "buyer" && (
+        <div>
+          <CategoryPreview
+            items={likedItems}
+            title={"saved pets"}
+            routeName={"profile"}
+            customAltText="You don't have any saved pets yet."
+          />
+          <CategoryPreview
+            items={adoptedItems}
+            title={"Previously adopted pets"}
+            routeName={"profile"}
+            customAltText="You haven't placed any pets for adoption."
+          />
+          Following profiles
+        </div>
+      )}
     </div>
   );
 };

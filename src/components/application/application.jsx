@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import FormInput from "../form-input/form-input";
@@ -7,8 +7,11 @@ import Button from "../button/button";
 import { clearCart } from "../../redux/cart/cart.actions";
 
 import "./application.styles.scss";
+import { updateUser } from "../../redux/user/user.actions";
 
 const Application = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const cartItems = useSelector((state) => state.cart.cartItems);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [appData, setAppData] = useState({
@@ -63,6 +66,11 @@ const Application = () => {
       alert(
         "We have receieved your application and will get back to you soon. Thank you!"
       );
+      let items = cartItems.map((i) => i._id);
+      updateUser(dispatch, {
+        ...currentUser,
+        adoptedItems: [...currentUser.adoptedItems, ...items],
+      });
       clearCart(dispatch);
       navigate("/home");
     }

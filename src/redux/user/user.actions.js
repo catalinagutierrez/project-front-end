@@ -34,6 +34,7 @@ export const signOut = (dispatch) => {
 };
 
 export const updateUser = async (dispatch, user) => {
+  console.log("updqt");
   //   const updatedUser = await UserService.updateUser(user._id, user);
   dispatch({
     type: UserActionTypes.SET_CURRENT_USER,
