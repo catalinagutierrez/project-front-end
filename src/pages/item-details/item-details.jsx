@@ -12,17 +12,17 @@ const ItemDetailsPage = () => {
   const localData = useSelector((state) => state.petData.data);
 
   useEffect(() => {
-    // look for the data in the local db
+    // look for the data in the local state first
     const result = localData.find(
       (item) => item._id === parseInt(params.get("id"))
     );
 
-    // if not found, request the info from the API
+    // if not found, request the info from the APIs
     if (result !== undefined) {
       setItem(result);
     } else {
       const fetch = async () => {
-        const response = await getPetDetails(parseInt(params.get("id")));
+        const response = await getPetDetails(params.get("id"));
         setItem(response);
       };
       fetch();

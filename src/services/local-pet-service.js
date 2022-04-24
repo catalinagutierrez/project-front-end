@@ -29,10 +29,16 @@ const findPetById = async (id) => {
   return response.data;
 };
 
+const getAllPets = async () => {
+  const response = await axios.get(`${PET_API}`);
+  return response.data;
+};
+
 const LocalPetService = {
   createPet,
   deletePet,
   findPetById,
+  getAllPets,
 };
 
 export default LocalPetService;

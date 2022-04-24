@@ -8,7 +8,7 @@ const createUser = async (user) => {
 };
 
 const findUserById = async (id) => {
-  const response = await axios.get(`${USERS_API}/${id}`);
+  const response = await axios.get(`${USERS_API}-seller/${id}`);
   return response.data;
 };
 

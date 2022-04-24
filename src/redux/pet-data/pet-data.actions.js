@@ -5,7 +5,11 @@ import LocalPetService from "../../services/local-pet-service";
 // function that retrieves data for a given type of pet
 export const getPetData = async (dispatch) => {
   let data = [];
-  //first load the local items
+  //first load local results
+  const localData = await LocalPetService.getAllPets();
+  localData.forEach((item) => {
+    data.push(item);
+  });
 
   //then load the first 60 matching results from the api
   try {

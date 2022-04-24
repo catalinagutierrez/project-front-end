@@ -47,7 +47,7 @@ function App() {
         <Route path="/discover/*" element={<DiscoverPage />} />
         <Route path="/login" element={<SignInAndSignUpPage />} />
         <Route path="/application" element={<ApplicationPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/*" element={<ProfilePage />} />
         <Route path="/details/*" element={<ItemDetailsPage />} />
         <Route path="/add" element={<PlaceForAdoptionPage />} />
         <Route path="/search" element={<SearchPage />} />

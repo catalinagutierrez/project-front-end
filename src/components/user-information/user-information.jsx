@@ -8,12 +8,12 @@ import { updateUser } from "../../redux/user/user.actions";
 
 import "./user-information.styles.scss";
 
-const UserInformation = () => {
+const UserInformation = ({ user }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user.currentUser);
   const [editable, setEditable] = useState(false);
-  const [userCredentials, setCredentials] = useState(currentUser);
-  const [confirmPassword, setConfirmPassword] = useState(currentUser.password);
+  const [userCredentials, setCredentials] = useState(user);
+  const [confirmPassword, setConfirmPassword] = useState(user.password);
   const [error, setError] = useState({});
   const { name, email, phone, password } = userCredentials;
 
@@ -122,7 +122,9 @@ const UserInformation = () => {
             <div className="wd-user-information-item">Email: {email}</div>
             <div className="wd-user-information-item">Phone: {phone}</div>
           </div>
-          <Button onClick={() => setEditable(true)}>Edit</Button>
+          {currentUser._id === user._id && (
+            <Button onClick={() => setEditable(true)}>Edit</Button>
+          )}
         </div>
       </div>
     );

@@ -11,7 +11,8 @@ import "./pet-information.styles.scss";
 const PetInformation = ({ item }) => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
-  const profileUrl = `/profile/${item.contact.userId}`;
+  const profileUrl = `/profile?id=${item.contact.userId}`;
+  // /profile?id=62623ffc98ea0eb3835184b7
 
   let liked = false;
   if (currentUser) {
