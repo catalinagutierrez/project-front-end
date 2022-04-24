@@ -15,7 +15,7 @@ const UserInformation = () => {
   const [userCredentials, setCredentials] = useState(currentUser);
   const [confirmPassword, setConfirmPassword] = useState(currentUser.password);
   const [error, setError] = useState({});
-  const { name, email, phone, type, password } = userCredentials;
+  const { name, email, phone, password } = userCredentials;
 
   const validate = () => {
     let errors = {};
