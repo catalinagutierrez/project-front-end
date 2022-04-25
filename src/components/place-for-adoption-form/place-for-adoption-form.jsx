@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { storage } from "../../firebase.utils";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
+
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
 
@@ -16,6 +20,7 @@ const PlaceForAdoptionForm = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const [error, setError] = useState({});
   const [breeds, setBreeds] = useState(["Select a breed"]);
+  const [images, setImages] = useState([]);
   const [itemInformation, setItemInformation] = useState({
     name: "",
     species: "",
@@ -30,9 +35,7 @@ const PlaceForAdoptionForm = () => {
       email: currentUser.email,
       phone: currentUser.phone,
     },
-    photos: [
-      "https://dl5zpyw5k3jeb.cloudfront.net/photos/pets/55262200/1/?bust=1649605022&width=600",
-    ],
+    photos: [],
   });
 
   const { name, species, age, gender, size, breed, description } =
@@ -91,37 +94,41 @@ const PlaceForAdoptionForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (validate()) {
-      if (itemInformation.species === "cat" && itemInformation.age === "baby") {
-        itemInformation.category = "kittens";
-      }
-      if (
-        itemInformation.species === "cat" &&
-        itemInformation.age === "adult"
-      ) {
-        itemInformation.category = "cats";
-      }
-      if (itemInformation.species === "dog" && itemInformation.age === "baby") {
-        itemInformation.category = "puppies";
-      }
-      if (
-        itemInformation.species === "dog" &&
-        itemInformation.age === "adult"
-      ) {
-        itemInformation.category = "dogs";
-      }
+      let uploads = [];
+      let urlFetches = [];
 
-      try {
-        const postedItem = await addPet(dispatch, itemInformation);
-        updateUser(dispatch, {
-          ...currentUser,
-          postedItems: [...currentUser.postedItems, postedItem._id],
+      images.forEach((image) => {
+        const uuid = v4();
+        const imageRef = ref(storage, `images/${uuid}`);
+        uploads.push(
+          uploadBytes(imageRef, image).then((res) => {
+            urlFetches.push(
+              getDownloadURL(imageRef).then((res) => {
+                setItemInformation({
+                  ...itemInformation,
+                  photos: itemInformation.photos.push(res),
+                });
+              })
+            );
+          })
+        );
+      });
+
+      Promise.all(uploads).then(() => {
+        Promise.all(urlFetches).then(async () => {
+          try {
+            const postedItem = await addPet(dispatch, itemInformation);
+            updateUser(dispatch, {
+              ...currentUser,
+              postedItems: [...currentUser.postedItems, postedItem._id],
+            });
+            navigate("/profile", { replace: true });
+          } catch (error) {
+            alert(error);
+          }
         });
-        navigate("/profile", { replace: true });
-      } catch (error) {
-        alert(error);
-      }
+      });
     }
   };
 
@@ -134,6 +141,10 @@ const PlaceForAdoptionForm = () => {
       const response = await getbreeds(value);
       setBreeds(response);
     }
+  };
+
+  const fileHandler = (event) => {
+    setImages([...event.target.files]);
   };
 
   return (
@@ -279,6 +290,10 @@ const PlaceForAdoptionForm = () => {
             </option>
           ))}
         </select>
+        {images.length > 0
+          ? images.forEach((image) => <img src={image} alt="uploaded file" />)
+          : ""}
+        <input type="file" multiple onChange={(event) => fileHandler(event)} />
         <Button onClick={handleSubmit}>CONFIRM</Button>
       </form>
     </div>

@@ -112,7 +112,7 @@ const UserInformation = ({ user }) => {
     return (
       <div className="wd-user-information">
         <img
-          src={require(`../../assets/user1.png`)}
+          src={require(`../../assets/user.png`)}
           alt="user"
           className="wd-user-img"
         />
@@ -132,7 +132,7 @@ const UserInformation = ({ user }) => {
     return (
       <div className="wd-user-information">
         <img
-          src={require(`../../assets/user1.png`)}
+          src={require(`../../assets/user.png`)}
           alt="user"
           className="wd-user-img"
         />
