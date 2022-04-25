@@ -39,7 +39,7 @@ $main-color: black;
 
   input[type="radio"] + label {
     margin: 0;
-    padding: 0 20px;
+    padding: 0; //0 20px: update for radio button
     top: -7px;
     font-size: 18px;
     color: $main-color;
