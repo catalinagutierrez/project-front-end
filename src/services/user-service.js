@@ -41,7 +41,10 @@ const deleteUser = async (user) => {
 };
 
 const updateUser = async (user) => {
-  const response = await axios.put(`${USERS_API}/${user._id}`, user);
+  const response = await axios.put(
+    `${USERS_API}-${user.type}/${user._id}`,
+    user
+  );
   return response.data;
 };
 

@@ -15,3 +15,13 @@
 .wd-sign-up-span {
   margin-bottom: 20px;
 }
+
+.wd-radio-buttons-row{
+  display: flex;
+  justify-content: space-between;
+
+
+  div {
+    margin: auto;
+  }
+}

@@ -36,7 +36,6 @@ const ProfilePage = () => {
       setError(error);
     } finally {
       setLoading(false);
-      console.log(user);
     }
   };
 

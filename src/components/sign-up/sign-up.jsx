@@ -172,24 +172,29 @@ const SignUp = () => {
           label="Confirm Password"
           error={error.confirmPassword}
         />
-
-        <FormInput
-          type="radio"
-          name="type"
-          value="buyer"
-          label="I'm looking to adopt!"
-          onChange={handleChange}
-          error={error.type}
-        />
-        <FormInput
-          type="radio"
-          name="type"
-          value="seller"
-          label="I want to put up for adoption!"
-          onChange={handleChange}
-          error={error.type}
-        />
-
+        <div className="wd-radio-buttons-row">
+          <div>
+            <input
+              type="radio"
+              name="type"
+              value="buyer"
+              onChange={handleChange}
+              error={error.type}
+            />
+            I'm looking to adopt!
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="type"
+              value="seller"
+              onChange={handleChange}
+              error={error.type}
+            />
+            I want to put up for adoption!
+          </div>
+        </div>
+        <div className="wd-warning">{error.type}</div>
         <Button onClick={handleSubmit}>SIGN UP</Button>
       </form>
     </div>

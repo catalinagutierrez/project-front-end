@@ -37,14 +37,6 @@ $main-color: black;
     letter-spacing: 0.3em;
   }
 
-  input[type="radio"] + label {
-    margin: 0;
-    padding: 0; //0 20px: update for radio button
-    top: -7px;
-    font-size: 18px;
-    color: $main-color;
-  }
-
   .wd-form-input-label {
     color: $sub-color;
     font-size: 16px;

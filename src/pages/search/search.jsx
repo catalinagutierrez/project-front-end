@@ -38,15 +38,13 @@ const SearchPage = () => {
       />
       <br />
       <div className="wd-search-results">
-        {query.results.length > 0
-          ? query.results.map((item) => (
-              <CategoryItem
-                key={item._id}
-                item={item}
-                category={item.category}
-              />
-            ))
-          : null}
+        {query.results.length > 0 ? (
+          query.results.map((item) => (
+            <CategoryItem key={item._id} item={item} category={item.category} />
+          ))
+        ) : (
+          <div>No pets found.</div>
+        )}
       </div>
     </div>
   );

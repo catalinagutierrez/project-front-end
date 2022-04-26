@@ -31,7 +31,7 @@ const ItemDetailsPage = () => {
 
   return (
     <div>
-      <h2 onClick={() => navigate('/profile/*')}>Back</h2>
+      <h2 onClick={() => navigate(-1)}>Back</h2>
       {item ? (
         <div className="wd-category-page">
           <PetInformation item={item} />
