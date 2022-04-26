@@ -5,12 +5,14 @@ import { storage } from "../../firebase.utils";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Button from "../button/button";
 import FormInput from "../form-input/form-input";
 
 import { updateUser } from "../../redux/user/user.actions";
 
 import "./user-information.styles.scss";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 const UserInformation = ({ user }) => {
   const dispatch = useDispatch();
@@ -21,6 +23,11 @@ const UserInformation = ({ user }) => {
   const [error, setError] = useState({});
   const [photo, setPhoto] = useState(null);
   const { name, email, phone, password } = userCredentials;
+
+  let following = false;
+  if (currentUser._id !== user._id && currentUser.type === "buyer") {
+    following = currentUser.following.some((i) => i === user._id);
+  }
 
   const validate = () => {
     let errors = {};
@@ -129,6 +136,22 @@ const UserInformation = ({ user }) => {
     setPhoto(event.target.files[0]);
   };
 
+  const followButtonHandler = (event) => {
+    event.stopPropagation();
+    following = !following;
+    if (following) {
+      updateUser(dispatch, {
+        ...currentUser,
+        following: [...currentUser.following, user._id],
+      });
+    } else {
+      updateUser(dispatch, {
+        ...currentUser,
+        following: [...currentUser.following.filter((u) => u !== user._id)],
+      });
+    }
+  };
+
   return (
     <div>
       {edit ? (
@@ -200,10 +223,28 @@ const UserInformation = ({ user }) => {
         <div className="wd-user-information">
           <img src={user.photo} alt="user" className="wd-user-img" />
           <div className="wd-user-details">
-            <h1>{name}</h1>
+            <h1>
+              {user.name}
+              {currentUser._id !== user._id && (
+                <span
+                  className="wd-follow-icon"
+                  onClick={(event) => followButtonHandler(event)}
+                >
+                  {following ? (
+                    <FontAwesomeIcon icon={faUserPlus} color="skyblue" />
+                  ) : (
+                    <FontAwesomeIcon icon={faUserPlus} color="lightgrey" />
+                  )}
+                </span>
+              )}
+            </h1>
             <div className="wd-profile-body">
-              <div className="wd-user-information-item">Email: {email}</div>
-              <div className="wd-user-information-item">Phone: {phone}</div>
+              <div className="wd-user-information-item">
+                Email: {user.email}
+              </div>
+              <div className="wd-user-information-item">
+                Phone: {user.phone}
+              </div>
             </div>
             {currentUser._id === user._id && (
               <Button onClick={() => setEdit(true)}>Edit</Button>

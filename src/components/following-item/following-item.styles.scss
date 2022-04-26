@@ -1,0 +1,34 @@
+.wd-following-item {
+    width: 20vw;
+    height: 22vw;
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    position: relative;
+    margin: 1%;
+  
+    .wd-following-image {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+    }
+  
+    .wd-following-footer {
+      width: 100%;
+      height: 5%;
+      display: flex;
+      justify-content: center;
+      font-size: 30px;
+
+      @media screen and (min-width: 700px) and (max-width: 1100px) {
+        font-size: 24px;
+      }
+    
+      @media screen and (max-width: 700px) {
+        font-size: 18px;
+      }
+    }
+  }
+  
