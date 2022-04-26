@@ -140,3 +140,13 @@ export const searchByName = async (queryString) => {
     return null;
   }
 };
+
+export const deletePet = async (dispatch, pet) => {
+  const response = await LocalPetService.deletePet(pet._id);
+  if (response === 200) {
+    dispatch({
+      type: PetDataActionTypes.DELETE_PET,
+      payload: pet._id,
+    });
+  }
+};

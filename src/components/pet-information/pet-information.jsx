@@ -1,22 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import UserService from "../../services/user-service";
 
 import { updateUser } from "../../redux/user/user.actions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faX } from "@fortawesome/free-solid-svg-icons";
 
 import "./pet-information.styles.scss";
+import { deletePet } from "../../redux/pet-data/pet-data.actions";
 
 const PetInformation = ({ item }) => {
+  const navigate = useNavigate();
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
+  const [userName, setUserName] = useState("");
   const profileUrl = `/profile?id=${item.contact.userId}`;
 
   let liked = false;
-  if (currentUser) {
+  if (currentUser && currentUser.type === "buyer") {
     liked = currentUser.likedItems.some((i) => i === item._id);
   }
+
+  useEffect(() => {
+    if (item.contact.userId) {
+      const fetchName = async () => {
+        const user = await UserService.findUserById(item.contact.userId);
+        setUserName(user.name);
+      };
+      fetchName();
+    }
+  }, []);
 
   const likedButtonHandler = (event) => {
     event.stopPropagation();
@@ -34,6 +49,25 @@ const PetInformation = ({ item }) => {
     }
   };
 
+  const removeButtonHandler = async (event) => {
+    event.stopPropagation();
+    if (window.confirm("Are you sure you wish to delete this item?")) {
+      try {
+        const user = await UserService.findUserById(item.contact.userId);
+        if (user) {
+          await UserService.updateUser({
+            ...user,
+            postedItems: [...user.postedItems.filter((i) => i !== item._id)],
+          });
+          await deletePet(dispatch, item);
+        }
+        navigate("/home");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <div>
       <div className="wd-pet-information">
@@ -43,7 +77,7 @@ const PetInformation = ({ item }) => {
         <div className="wd-pet-information-body">
           <h1>
             {item.name.toUpperCase()}&nbsp;
-            {currentUser && (
+            {currentUser && currentUser.type === "buyer" && (
               <span onClick={(event) => likedButtonHandler(event)}>
                 {liked ? (
                   <FontAwesomeIcon icon={faHeart} color="pink" size="2x" />
@@ -52,11 +86,18 @@ const PetInformation = ({ item }) => {
                 )}
               </span>
             )}
+            {currentUser &&
+              currentUser.type === "admin" &&
+              item.contact.userId && (
+                <span onClick={(event) => removeButtonHandler(event)}>
+                  <FontAwesomeIcon icon={faX} color="gray" size="2x" />
+                </span>
+              )}
           </h1>
 
           {item.contact.userId && (
             <span>
-              Posted by <Link to={profileUrl}>{currentUser.name}</Link>
+              Posted by <Link to={profileUrl}>{userName}</Link>
             </span>
           )}
           <hr />

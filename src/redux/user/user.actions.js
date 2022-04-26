@@ -40,5 +40,7 @@ export const updateUser = async (dispatch, user) => {
       type: UserActionTypes.SET_CURRENT_USER,
       payload: user,
     });
+  } else {
+    alert("Something went wrong on our end. Please try again later.");
   }
 };

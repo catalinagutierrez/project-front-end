@@ -16,7 +16,7 @@ const CategoryItem = ({ item }) => {
   const currentUser = useSelector((state) => state.user.currentUser);
 
   let liked = false;
-  if (currentUser) {
+  if (currentUser && currentUser.type === "buyer") {
     liked = currentUser.likedItems.some((i) => i === item._id);
   }
 

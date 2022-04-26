@@ -198,7 +198,7 @@ const UserInformation = ({ user }) => {
         </div>
       ) : (
         <div className="wd-user-information">
-          <img src={currentUser.photo} alt="user" className="wd-user-img" />
+          <img src={user.photo} alt="user" className="wd-user-img" />
           <div className="wd-user-details">
             <h1>{name}</h1>
             <div className="wd-profile-body">

@@ -19,11 +19,13 @@ const createPet = async (item) => {
       url: item.url,
     },
   });
-  console.log(response.data);
   return response.data;
 };
 
-const deletePet = async (pet) => {};
+const deletePet = async (id) => {
+  const response = await axios.delete(`${PET_API}/${id}`);
+  return response.status;
+};
 
 const findPetById = async (id) => {
   const response = await axios.get(`${PET_API}/${id}`);
