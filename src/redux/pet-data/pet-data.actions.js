@@ -84,7 +84,6 @@ export const getPetDetails = async (id) => {
 };
 
 export const addPet = async (dispatch, item) => {
-  console.log(item);
   const newPet = await LocalPetService.createPet(item);
   dispatch({
     type: PetDataActionTypes.ADD_PET,

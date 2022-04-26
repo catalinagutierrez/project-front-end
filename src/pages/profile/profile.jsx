@@ -41,7 +41,8 @@ const ProfilePage = () => {
 
   useEffect(() => {
     loadUser();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    console.log("load user");
+  }, [currentUser]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (user) {

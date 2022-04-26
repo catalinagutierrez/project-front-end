@@ -13,12 +13,13 @@ const createPet = async (item) => {
       species: item.species,
       size: item.size,
       breed: item.breed,
-      desription: item.description,
+      description: item.description,
       photos: item.photos,
       contact: item.contact,
       url: item.url,
     },
   });
+  console.log(response.data);
   return response.data;
 };
 

@@ -87,6 +87,11 @@ const PlaceForAdoptionForm = () => {
       errors["breed"] = "Please select a breed.";
     }
 
+    if (images.length === 0) {
+      isValid = false;
+      errors["images"] = "Please upload at least one photo of your pet.";
+    }
+
     setError(errors);
 
     return isValid;
@@ -181,6 +186,7 @@ const PlaceForAdoptionForm = () => {
             />
             Dog
           </div>
+          <div className="wd-warning">{error.species}</div>
           <h3>Age</h3>
           <div>
             <input
@@ -222,6 +228,7 @@ const PlaceForAdoptionForm = () => {
             />
             Senior
           </div>
+          <div className="wd-warning">{error.age}</div>
           <h3>Gender</h3>
           <div>
             <input
@@ -253,6 +260,7 @@ const PlaceForAdoptionForm = () => {
             />
             Unknown
           </div>
+          <div className="wd-warning">{error.gender}</div>
           <h3>Size</h3>
           <div>
             <input
@@ -294,6 +302,7 @@ const PlaceForAdoptionForm = () => {
             />
             XLarge
           </div>
+          <div className="wd-warning">{error.size}</div>
         </div>
         <FormInput
           type="text"
@@ -314,6 +323,7 @@ const PlaceForAdoptionForm = () => {
           ? images.forEach((image) => <img src={image} alt="uploaded file" />)
           : ""}
         <input type="file" multiple onChange={(event) => fileHandler(event)} />
+        <div className="wd-warning">{error.images}</div>
         <Button onClick={handleSubmit}>CONFIRM</Button>
       </form>
     </div>
