@@ -5,7 +5,7 @@ import SignUp from "../../components/sign-up/sign-up";
 const CreateAccountPage = () => {
   return (
     <div className="wd-sign-in-and-sign-up">
-      <SignUp admin={true} />
+      <SignUp adminSignUp={true} />
     </div>
   );
 };

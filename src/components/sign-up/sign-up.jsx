@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import UserService from "../../services/user-service";
+
 import FormInput from "../form-input/form-input";
 import Button from "../button/button";
 
@@ -9,7 +11,7 @@ import { signUp } from "../../redux/user/user.actions";
 
 import "./sign-up.styles.scss";
 
-const SignUp = () => {
+const SignUp = ({ adminSignUp }) => {
   const dispatch = useDispatch();
   let navigate = useNavigate();
   const [error, setError] = useState({});
@@ -111,12 +113,25 @@ const SignUp = () => {
     event.preventDefault();
 
     if (validate()) {
-      try {
-        await signUp(dispatch, userCredentials);
-        navigate("/home");
-      } catch (error) {
-        let errors = { email: "Email already in use." };
-        setError(errors);
+      if (adminSignUp) {
+        const existingUser = await UserService.findUserByEmail(
+          userCredentials.email
+        );
+        if (!existingUser) {
+          await UserService.createUser(userCredentials);
+          navigate("/home");
+        } else {
+          let errors = { email: "Email already in use." };
+          setError(errors);
+        }
+      } else {
+        try {
+          await signUp(dispatch, userCredentials);
+          navigate("/home");
+        } catch (error) {
+          let errors = { email: "Email already in use." };
+          setError(errors);
+        }
       }
     }
   };
@@ -128,12 +143,18 @@ const SignUp = () => {
 
   return (
     <div className="wd-sign-up">
-      <div>
-        <h2 className="wd-sign-up-title">I do not have a account</h2>
-        <span className="wd-sign-up-span">
-          Sign up with your email and password
-        </span>
-      </div>
+      {adminSignUp ? (
+        <div>
+          <h2 className="wd-sign-up-title">Manually create account</h2>
+        </div>
+      ) : (
+        <div>
+          <h2 className="wd-sign-up-title">I do not have a account</h2>
+          <span className="wd-sign-up-span">
+            Sign up with your email and password
+          </span>
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <FormInput
           type="text"
@@ -175,30 +196,67 @@ const SignUp = () => {
           label="Confirm Password"
           error={error.confirmPassword}
         />
-        <div className="wd-radio-buttons-row">
-          <div>
-            <input
-              type="radio"
-              name="type"
-              value="buyer"
-              onChange={handleChange}
-              error={error.type}
-            />
-            I'm looking to adopt!
+        {adminSignUp ? (
+          <div className="wd-radio-buttons-row">
+            <div>
+              <input
+                type="radio"
+                name="type"
+                value="buyer"
+                onChange={handleChange}
+                error={error.type}
+              />
+              Buyer
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="type"
+                value="seller"
+                onChange={handleChange}
+                error={error.type}
+              />
+              Seller
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="type"
+                value="admin"
+                onChange={handleChange}
+                error={error.type}
+              />
+              Admin
+            </div>
           </div>
-          <div>
-            <input
-              type="radio"
-              name="type"
-              value="seller"
-              onChange={handleChange}
-              error={error.type}
-            />
-            I want to put up for adoption!
+        ) : (
+          <div className="wd-radio-buttons-row">
+            <div>
+              <input
+                type="radio"
+                name="type"
+                value="buyer"
+                onChange={handleChange}
+                error={error.type}
+              />
+              I'm looking to adopt!
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="type"
+                value="seller"
+                onChange={handleChange}
+                error={error.type}
+              />
+              I want to put up for adoption!
+            </div>
           </div>
-        </div>
+        )}
         <div className="wd-warning">{error.type}</div>
-        <Button onClick={handleSubmit}>SIGN UP</Button>
+        <Button onClick={handleSubmit}>
+          {adminSignUp ? "CREATE" : "SIGN UP"}
+        </Button>
       </form>
     </div>
   );
