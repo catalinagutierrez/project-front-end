@@ -8,11 +8,9 @@
   .wd-logo-container {
     height: 100%;
     width: 70px;
-    padding: 25px;
 
-    @media screen and (max-width: 800px) {
-        width: 50px;
-        padding: 0;
+    @media screen and (max-width: 900px) {
+        width: 40px;
     }
   }
 
@@ -29,6 +27,12 @@
 
     .wd-option {
       padding: 10px 15px;
+    }
+  }
+
+  .wd-logo{
+    @media screen and (max-width: 900px) {
+        width: 40px;
     }
   }
 }
