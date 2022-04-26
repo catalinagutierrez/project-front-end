@@ -34,9 +34,11 @@ export const signOut = (dispatch) => {
 };
 
 export const updateUser = async (dispatch, user) => {
-  const updatedUser = await UserService.updateUser(user._id, user);
-  dispatch({
-    type: UserActionTypes.SET_CURRENT_USER,
-    payload: updatedUser,
-  });
+  const response = await UserService.updateUser(user);
+  if (response.status === 200) {
+    dispatch({
+      type: UserActionTypes.SET_CURRENT_USER,
+      payload: user,
+    });
+  }
 };

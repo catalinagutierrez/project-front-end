@@ -20,6 +20,9 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
     type: "",
+    //default photo to the anonymous user photo
+    photo:
+      "https://firebasestorage.googleapis.com/v0/b/cat-animal-rescue-db.appspot.com/o/user.png?alt=media&token=32127a6e-46cc-4606-8d49-12562c79e55d",
   });
 
   const { name, email, phone, password, confirmPassword, type } =

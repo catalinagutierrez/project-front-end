@@ -25,7 +25,7 @@ export const getPetData = async (dispatch) => {
         let photos = [];
         item.photos.map((photo) => photos.push(photo.large));
         data.push({
-          _id: item.id,
+          _id: item.id.toString(),
           name: item.name,
           species: item.species.toLowerCase(),
           age: item.age.toLowerCase(),

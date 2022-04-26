@@ -45,7 +45,7 @@ const updateUser = async (user) => {
     `${USERS_API}-${user.type}/${user._id}`,
     user
   );
-  return response.data;
+  return response;
 };
 
 const UserService = {

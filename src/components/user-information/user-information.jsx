@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
+import { storage } from "../../firebase.utils";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
+
 import Button from "../button/button";
 import FormInput from "../form-input/form-input";
 
@@ -11,10 +15,11 @@ import "./user-information.styles.scss";
 const UserInformation = ({ user }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user.currentUser);
-  const [editable, setEditable] = useState(false);
-  const [userCredentials, setCredentials] = useState(user);
+  const [edit, setEdit] = useState(false);
+  const [userCredentials, setUserCredentials] = useState(user);
   const [confirmPassword, setConfirmPassword] = useState(user.password);
   const [error, setError] = useState({});
+  const [photo, setPhoto] = useState(null);
   const { name, email, phone, password } = userCredentials;
 
   const validate = () => {
@@ -96,105 +101,118 @@ const UserInformation = ({ user }) => {
     if (name === "confirmPassword") {
       setConfirmPassword(value);
     } else {
-      setCredentials({ ...userCredentials, [name]: value });
+      setUserCredentials({ ...userCredentials, [name]: value });
     }
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (validate()) {
-      updateUser(dispatch, userCredentials);
-      setEditable(false);
+      if (photo) {
+        const uuid = v4();
+        const imageRef = ref(storage, `user_images/${uuid}`);
+        uploadBytes(imageRef, photo).then((res) => {
+          getDownloadURL(imageRef).then((res) => {
+            updateUser(dispatch, { ...userCredentials, photo: res });
+            setEdit(false);
+          });
+        });
+      } else {
+        setUserCredentials({ ...userCredentials });
+        updateUser(dispatch, userCredentials);
+        setEdit(false);
+      }
     }
   };
 
-  if (!editable) {
-    return (
-      <div className="wd-user-information">
-        <img
-          src={require(`../../assets/user.png`)}
-          alt="user"
-          className="wd-user-img"
-        />
-        <div className="wd-user-details">
-          <h1>{name}</h1>
-          <div className="wd-profile-body">
-            <div className="wd-user-information-item">Email: {email}</div>
-            <div className="wd-user-information-item">Phone: {phone}</div>
+  const fileHandler = (event) => {
+    setPhoto(event.target.files[0]);
+  };
+
+  return (
+    <div>
+      {edit ? (
+        <div className="wd-user-information">
+          <div className="wd-user-details">
+            <form className="wd-edit-user-form" onSubmit={handleSubmit}>
+              <FormInput
+                type="text"
+                name="name"
+                value={name}
+                onChange={handleChange}
+                label="Name"
+                error={error.name}
+              />
+              <FormInput
+                type="text"
+                name="email"
+                value={email}
+                onChange={handleChange}
+                label="Email"
+                error={error.email}
+              />
+              <FormInput
+                type="text"
+                name="phone"
+                value={phone}
+                onChange={handleChange}
+                label="Phone Number"
+                error={error.phone}
+              />
+              <FormInput
+                type="password"
+                name="password"
+                value={password}
+                onChange={handleChange}
+                label="New Password"
+                error={error.password}
+              />
+              <FormInput
+                type="password"
+                name="confirmPassword"
+                value={confirmPassword}
+                onChange={handleChange}
+                label="Confirm Password"
+                error={error.confirmPassword}
+              />
+              <input
+                className="wd-user-img-input"
+                type="file"
+                multiple
+                onChange={(event) => fileHandler(event)}
+              />
+              <div className="wd-buttons-bar">
+                <Button type="submit">SAVE</Button>
+                <Button
+                  onClick={() => {
+                    setEdit(false);
+                    setError({});
+                    setUserCredentials(currentUser);
+                  }}
+                >
+                  CANCEL
+                </Button>
+              </div>
+            </form>
           </div>
-          {currentUser._id === user._id && (
-            <Button onClick={() => setEditable(true)}>Edit</Button>
-          )}
         </div>
-      </div>
-    );
-  } else {
-    return (
-      <div className="wd-user-information">
-        <img
-          src={require(`../../assets/user.png`)}
-          alt="user"
-          className="wd-user-img"
-        />
-        <div className="wd-user-details">
-          <form className="wd-edit-user-form" onSubmit={handleSubmit}>
-            <FormInput
-              type="text"
-              name="name"
-              value={name}
-              onChange={handleChange}
-              label="Name"
-              error={error.name}
-            />
-            <FormInput
-              type="text"
-              name="email"
-              value={email}
-              onChange={handleChange}
-              label="Email"
-              error={error.email}
-            />
-            <FormInput
-              type="text"
-              name="phone"
-              value={phone}
-              onChange={handleChange}
-              label="Phone Number"
-              error={error.phone}
-            />
-            <FormInput
-              type="password"
-              name="password"
-              value={password}
-              onChange={handleChange}
-              label="New Password"
-              error={error.password}
-            />
-            <FormInput
-              type="password"
-              name="confirmPassword"
-              value={confirmPassword}
-              onChange={handleChange}
-              label="Confirm Password"
-              error={error.confirmPassword}
-            />
-            <div className="wd-buttons-bar">
-              <Button type="submit">SAVE</Button>
-              <Button
-                onClick={() => {
-                  setEditable(false);
-                  setError({});
-                  setCredentials(currentUser);
-                }}
-              >
-                CANCEL
-              </Button>
+      ) : (
+        <div className="wd-user-information">
+          <img src={currentUser.photo} alt="user" className="wd-user-img" />
+          <div className="wd-user-details">
+            <h1>{name}</h1>
+            <div className="wd-profile-body">
+              <div className="wd-user-information-item">Email: {email}</div>
+              <div className="wd-user-information-item">Phone: {phone}</div>
             </div>
-          </form>
+            {currentUser._id === user._id && (
+              <Button onClick={() => setEdit(true)}>Edit</Button>
+            )}
+          </div>
         </div>
-      </div>
-    );
-  }
+      )}
+    </div>
+  );
 };
 
 export default UserInformation;
