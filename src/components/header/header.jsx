@@ -29,34 +29,22 @@ const Header = () => {
           DISCOVER
         </Link>
         {currentUser ? (
-          <div>
-            <Link className="wd-option" to="/profile">
-              PROFILE
-            </Link>
-            {currentUser.type === "seller" && (
-              <Link className="wd-option" to="/add">
-                PLACE FOR ADOPTION
-              </Link>
-            )}
-            {currentUser.type === "admin" && (
-              <Link className="wd-option" to="/createAccount">
-                CREATE ACCOUNT
-              </Link>
-            )}
-            <Link
-              className="wd-option"
-              onClick={() => {
-                clearCart(dispatch);
-                signOut(dispatch);
-              }}
-              to="/home"
-            >
-              SIGN OUT
-            </Link>
-          </div>
+          <Link className="wd-option" to="/profile">
+            PROFILE
+          </Link>
         ) : (
           <Link className="wd-option" to="/login">
             SIGN IN
+          </Link>
+        )}
+        {currentUser && currentUser.type === "seller" && (
+          <Link className="wd-option" to="/add">
+            PLACE FOR ADOPTION
+          </Link>
+        )}
+        {currentUser && currentUser.type === "admin" && (
+          <Link className="wd-option" to="/createAccount">
+            CREATE ACCOUNT
           </Link>
         )}
         {currentUser && currentUser.type === "buyer" && <CartIcon />}
