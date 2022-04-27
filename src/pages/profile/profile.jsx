@@ -17,6 +17,7 @@ const ProfilePage = () => {
         if (params.get("id")) {
           const response = await UserService.findUserById(params.get("id"));
           setUser(response);
+          console.log(user);
         } else {
           setUser(currentUser);
         }
