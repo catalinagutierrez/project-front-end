@@ -20,7 +20,6 @@ import Footer from "./components/footer/footer";
 import UserCollectionPage from "./pages/user-collection/user-collection";
 
 import "./App.css";
-import CategoryPage from "./pages/category/category";
 
 function App() {
   const dispatch = useDispatch();

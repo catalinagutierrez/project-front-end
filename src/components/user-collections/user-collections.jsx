@@ -59,7 +59,7 @@ const UserCollections = ({ user }) => {
         });
       }
     }
-  }, []);
+  }, [user]);
 
   return (
     <div>

@@ -56,7 +56,12 @@ const UserCollectionPage = () => {
         }
       });
     }
-  }, []);
+  }, [
+    pageType,
+    currentUser.following,
+    currentUser.likedItems,
+    currentUser.postedItems,
+  ]);
 
   return (
     <div>

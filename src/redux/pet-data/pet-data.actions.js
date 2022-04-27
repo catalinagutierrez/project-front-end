@@ -48,13 +48,15 @@ export const getPetData = async (dispatch) => {
 };
 
 export const getPetDetails = async (id) => {
-  //first try to fetch the details from the local db.
+  //first try to fetch the details from the local db if the id matches the database schema
   // Status 400 means that the id does not belong ot the local db.
-  try {
-    const response = await LocalPetService.findPetById(id);
-    return response;
-  } catch (error) {
-    console.log(error);
+  if (id.length === 24) {
+    try {
+      const response = await LocalPetService.findPetById(id);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   //if not found then try fetching from the api
