@@ -31,7 +31,7 @@ const PetInformation = ({ item }) => {
       };
       fetchName();
     }
-  }, []);
+  }, [item.contact.userId]);
 
   const likedButtonHandler = (event) => {
     event.stopPropagation();

@@ -11,24 +11,23 @@ const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const loadUser = async () => {
-    try {
-      if (params.get("id")) {
-        const response = await UserService.findUserById(params.get("id"));
-        setUser(response);
-      } else {
-        setUser(currentUser);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const loadUser = async () => {
+      try {
+        if (params.get("id")) {
+          const response = await UserService.findUserById(params.get("id"));
+          setUser(response);
+        } else {
+          setUser(currentUser);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
     loadUser();
-  }, [params]);
+  }, [params, currentUser]);
 
   return (
     <div className="wd-profile">

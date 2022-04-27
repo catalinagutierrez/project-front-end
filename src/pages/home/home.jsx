@@ -27,7 +27,7 @@ const HomePage = () => {
         }
       });
     }
-  }, []);
+  }, [currentUser]);
 
   return (
     <div className="wd-home">
