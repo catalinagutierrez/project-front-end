@@ -5,7 +5,7 @@ import CategoryItem from "../category-item/category-item";
 
 import "./category-preview.styles.scss";
 
-const CategoryPreview = ({ title, items, customAltText }) => {
+const CategoryPreview = ({ title, items, route, customAltText }) => {
   let navigate = useNavigate();
 
   return (
@@ -22,7 +22,9 @@ const CategoryPreview = ({ title, items, customAltText }) => {
           <h1
             className="wd-title"
             onClick={() => {
-              navigate(`${title}`);
+              if (route) {
+                navigate(`${route}`, { replace: true });
+              }
             }}
           >
             {title.toUpperCase()}

@@ -5,9 +5,8 @@ import FollowingItem from "../following-item/following-item";
 
 import "./following-preview.styles.scss";
 
-const FollowingPreview = ({ title, users }) => {
+const FollowingPreview = ({ title, users, route }) => {
   let navigate = useNavigate();
-  console.log(users);
 
   return (
     <div>
@@ -20,10 +19,11 @@ const FollowingPreview = ({ title, users }) => {
         <div className="wd-following-preview">
           <h1
             className="wd-title"
-            //maybe navigate to page that displays all
-            // onClick={() => {
-            //   navigate(`/profile?id=${user.contact.userId}}`, {replace: true});
-            // }}
+            onClick={() => {
+              if (route) {
+                navigate(`${route}`, { replace: true });
+              }
+            }}
           >
             {title.toUpperCase()}
           </h1>

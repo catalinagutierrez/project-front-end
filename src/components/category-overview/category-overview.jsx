@@ -34,11 +34,26 @@ const CategoryOverview = () => {
         </div>
       ) : (
         <div className="wd-category-overview">
-          <CategoryPreview key="cats" title="cats" items={cats} />
-          <CategoryPreview key="dogs" title="dogs" items={dogs} />
-          <CategoryPreview key="kittens" title="kittens" items={kittens} />
-          <CategoryPreview key="puppies" title="puppies" items={puppies} />
-          <CategoryPreview key="seniors" title="seniors" items={seniors} />
+          <CategoryPreview key="cats" title="cats" items={cats} route="cats" />
+          <CategoryPreview key="dogs" title="dogs" items={dogs} route="dogs" />
+          <CategoryPreview
+            key="kittens"
+            title="kittens"
+            items={kittens}
+            route="kittens"
+          />
+          <CategoryPreview
+            key="puppies"
+            title="puppies"
+            items={puppies}
+            route="puppies"
+          />
+          <CategoryPreview
+            key="seniors"
+            title="seniors"
+            items={seniors}
+            route="seniors"
+          />
         </div>
       )}
     </div>

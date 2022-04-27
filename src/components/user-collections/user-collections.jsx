@@ -68,7 +68,7 @@ const UserCollections = ({ user }) => {
         <CategoryPreview
           items={postedItems}
           title={"pets for adoption"}
-          routeName={"profile"}
+          route={"posted"}
           customAltText="You haven't placed any pets for adoption."
         />
       )}
@@ -76,17 +76,20 @@ const UserCollections = ({ user }) => {
         <div>
           <CategoryPreview
             items={likedItems}
-            title={"saved pets"}
-            routeName={"profile"}
+            title={"likes"}
+            route={"likes"}
             customAltText="You don't have any saved pets yet."
+          />
+          <FollowingPreview
+            users={followedUsers}
+            title={"following"}
+            route={"following"}
           />
           <CategoryPreview
             items={adoptedItems}
-            title={"Previously adopted pets"}
-            routeName={"profile"}
+            title={"Recently adopted pets"}
             customAltText="You haven't placed any pets for adoption."
           />
-          <FollowingPreview users={followedUsers} title={"People you follow"} />
         </div>
       )}
     </div>

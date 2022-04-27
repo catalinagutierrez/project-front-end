@@ -17,8 +17,10 @@ import CreateAccountPage from "./pages/create-account/create-account";
 import PrivacyPolicyPage from "./pages/privacy-policy/privacy-policy";
 import SearchPage from "./pages/search/search";
 import Footer from "./components/footer/footer";
+import UserCollectionPage from "./pages/user-collection/user-collection";
 
 import "./App.css";
+import CategoryPage from "./pages/category/category";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +28,7 @@ function App() {
   const loadData = useCallback(async () => {
     for (let attempts = 0; attempts < 3; attempts++) {
       try {
+        console.log("attempt to load");
         await getPetData(dispatch);
         break;
       } catch (error) {
@@ -54,6 +57,9 @@ function App() {
         <Route path="/createAccount" element={<CreateAccountPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path="/profile/likes" element={<UserCollectionPage />} />
+        <Route path="/profile/posted" element={<UserCollectionPage />} />
+        <Route path="/profile/following" element={<UserCollectionPage />} />
       </Routes>
       <Footer />
     </div>
