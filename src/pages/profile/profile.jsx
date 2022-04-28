@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import UserService from "../../services/user-service";
 import UserCollections from "../../components/user-collections/user-collections";
@@ -10,24 +10,29 @@ const ProfilePage = () => {
   const [params] = useSearchParams();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const loadUser = async () => {
-      try {
-        if (params.get("id")) {
-          const response = await UserService.findUserById(params.get("id"));
-          setUser(response);
-        } else {
-          setUser(currentUser);
+    if (currentUser) {
+      const loadUser = async () => {
+        try {
+          if (params.get("id")) {
+            const response = await UserService.findUserById(params.get("id"));
+            setUser(response);
+          } else {
+            setUser(currentUser);
+          }
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadUser();
-  }, [params, currentUser]);
+      };
+      loadUser();
+    } else {
+      navigate("/login", { replace: true });
+    }
+  }, [params, currentUser, navigate]);
 
   return (
     <div className="wd-profile">
