@@ -87,7 +87,7 @@ const UserCollections = ({ user }) => {
           />
           <CategoryPreview
             items={adoptedItems}
-            title={"Recently adopted pets"}
+            title={"Pets you applied for"}
             customAltText="You haven't placed any pets for adoption."
           />
         </div>

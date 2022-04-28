@@ -17,7 +17,8 @@ const CategoryItem = ({ item }) => {
 
   let liked = false;
   if (currentUser && currentUser.type === "buyer") {
-    liked = currentUser.likedItems.some((i) => i === item._id);
+    console.log(item._id);
+    liked = currentUser.likedItems.some((i) => i === item._id.toString());
   }
 
   const name = item.name;
@@ -43,6 +44,7 @@ const CategoryItem = ({ item }) => {
     }
   };
 
+  console.log(liked);
   return (
     <div
       className="wd-category-item"
