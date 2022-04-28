@@ -25,8 +25,10 @@ const UserInformation = ({ user }) => {
   const { name, email, phone, password } = userCredentials;
 
   let following = false;
-  if (currentUser._id !== user._id && currentUser.type === "buyer") {
-    following = currentUser.following.some((i) => i === user._id);
+  if (currentUser) {
+    if (currentUser._id !== user._id && currentUser.type === "buyer") {
+      following = currentUser.following.some((i) => i === user._id);
+    }
   }
 
   const validate = () => {
@@ -225,7 +227,7 @@ const UserInformation = ({ user }) => {
           <div className="wd-user-details">
             <h1>
               {user.name}
-              {currentUser._id !== user._id && (
+              {currentUser && currentUser._id !== user._id && (
                 <span
                   className="wd-follow-icon"
                   onClick={(event) => followButtonHandler(event)}
@@ -246,7 +248,7 @@ const UserInformation = ({ user }) => {
                 Phone: {user.phone}
               </div>
             </div>
-            {currentUser._id === user._id && (
+            {currentUser && currentUser._id === user._id && (
               <Button onClick={() => setEdit(true)}>Edit</Button>
             )}
           </div>
