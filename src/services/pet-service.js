@@ -39,12 +39,6 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   async (error) => {
-    console.log(error);
-
-    // if it was unauthorized, try refreshing the token again
-    // mark the retry to avoid infinite loops
-    await refreshToken();
-
     return Promise.reject(error);
   }
 );

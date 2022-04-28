@@ -27,7 +27,6 @@ function App() {
   const loadData = useCallback(async () => {
     for (let attempts = 0; attempts < 3; attempts++) {
       try {
-        console.log("attempt to load");
         await getPetData(dispatch);
         break;
       } catch (error) {
