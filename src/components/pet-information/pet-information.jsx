@@ -20,7 +20,7 @@ const PetInformation = ({ item }) => {
 
   let liked = false;
   if (currentUser && currentUser.type === "buyer") {
-    liked = currentUser.likedItems.some((i) => i === item._id);
+    liked = currentUser.likedItems.some((i) => i === item._id.toString());
   }
 
   useEffect(() => {
@@ -39,12 +39,14 @@ const PetInformation = ({ item }) => {
     if (liked) {
       updateUser(dispatch, {
         ...currentUser,
-        likedItems: [...currentUser.likedItems, item._id],
+        likedItems: [...currentUser.likedItems, item._id.toString()],
       });
     } else {
       updateUser(dispatch, {
         ...currentUser,
-        likedItems: [...currentUser.likedItems.filter((i) => i !== item._id)],
+        likedItems: [
+          ...currentUser.likedItems.filter((i) => i !== item._id.toString()),
+        ],
       });
     }
   };

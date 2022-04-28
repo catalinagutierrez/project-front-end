@@ -24,42 +24,56 @@ const UserCollections = ({ user }) => {
   };
 
   useEffect(() => {
-    if (user) {
-      if (user.type === "buyer") {
-        // load liked items
-        user.likedItems.forEach(async (id) => {
-          const item = await fetchPet(id);
-          if (item) {
-            setLikedItems((likedItems) => [...likedItems, item]);
-          }
-        });
-        // load adopted items
-        user.adoptedItems.forEach(async (id) => {
-          const item = await fetchPet(id);
-          if (item) {
-            setAdoptedItems((adoptedItems) => [...adoptedItems, item]);
-          }
-        });
-        //load followed users
-        user.following.forEach(async (id) => {
-          const item = await fetchUser(id);
-          if (item) {
-            setFollowedUsers((followedUsers) => [...followedUsers, item]);
-          }
-        });
-      }
-
-      if (user.type === "seller") {
-        // load posted items
-        user.postedItems.forEach(async (id) => {
-          const item = await fetchPet(id);
-          if (item) {
-            setPostedItems((postedItems) => [...postedItems, item]);
-          }
-        });
-      }
+    setLikedItems([]);
+    if (user.likedItems) {
+      // load liked items
+      user.likedItems.forEach(async (id) => {
+        const item = await fetchPet(id);
+        if (item) {
+          setLikedItems((likedItems) => [...likedItems, item]);
+        }
+      });
     }
-  }, [user]);
+  }, [user.likedItems]);
+
+  useEffect(() => {
+    setAdoptedItems([]);
+    if (user.adoptedItems) {
+      // load adopted items
+      user.adoptedItems.forEach(async (id) => {
+        const item = await fetchPet(id);
+        if (item) {
+          setAdoptedItems((adoptedItems) => [...adoptedItems, item]);
+        }
+      });
+    }
+  }, [user.adoptedItems]);
+
+  useEffect(() => {
+    setPostedItems([]);
+    if (user.postedItems) {
+      // load posted items
+      user.postedItems.forEach(async (id) => {
+        const item = await fetchPet(id);
+        if (item) {
+          setPostedItems((postedItems) => [...postedItems, item]);
+        }
+      });
+    }
+  }, [user.postedItems]);
+
+  useEffect(() => {
+    setFollowedUsers([]);
+    if (user.following) {
+      //load followed users
+      user.following.forEach(async (id) => {
+        const item = await fetchUser(id);
+        if (item) {
+          setFollowedUsers((followedUsers) => [...followedUsers, item]);
+        }
+      });
+    }
+  }, [user.following]);
 
   return (
     <div>

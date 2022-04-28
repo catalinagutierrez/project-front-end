@@ -27,6 +27,7 @@ const UserCollectionPage = () => {
   };
 
   useEffect(() => {
+    setItems([]);
     if (pageType === "likes") {
       // load liked items
       currentUser.likedItems.forEach(async (id) => {
@@ -36,7 +37,10 @@ const UserCollectionPage = () => {
         }
       });
     }
+  }, [pageType, currentUser.likedItems]);
 
+  useEffect(() => {
+    setItems([]);
     if (pageType === "posted") {
       // load posted items
       currentUser.postedItems.forEach(async (id) => {
@@ -46,7 +50,10 @@ const UserCollectionPage = () => {
         }
       });
     }
+  }, [pageType, currentUser.postedItems]);
 
+  useEffect(() => {
+    setItems([]);
     if (pageType === "following") {
       //load followed users
       currentUser.following.forEach(async (id) => {
@@ -56,12 +63,7 @@ const UserCollectionPage = () => {
         }
       });
     }
-  }, [
-    pageType,
-    currentUser.following,
-    currentUser.likedItems,
-    currentUser.postedItems,
-  ]);
+  }, [pageType, currentUser.following]);
 
   return (
     <div>
