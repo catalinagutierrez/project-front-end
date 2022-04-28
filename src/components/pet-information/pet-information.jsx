@@ -88,13 +88,14 @@ const PetInformation = ({ item }) => {
                 )}
               </span>
             )}
-            {currentUser &&
+            {(currentUser &&
               currentUser.type === "admin" &&
-              item.contact.userId && (
+              item.contact.userId) ||
+              (currentUser._id === item.contact.userId && (
                 <span onClick={(event) => removeButtonHandler(event)}>
                   <FontAwesomeIcon icon={faX} color="gray" size="2x" />
                 </span>
-              )}
+              ))}
           </h1>
 
           {item.contact.userId && (
