@@ -16,11 +16,14 @@ axiosInstance.interceptors.request.use(
     }
 
     let token = JSON.parse(localStorage.getItem("token"));
+    console.log(token);
 
     //if current token doesn't exist, get a new one
     if (!token) {
       token = await refreshToken();
     }
+
+    console.log(token);
 
     config.headers[
       "Authorization"
