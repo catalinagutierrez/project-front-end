@@ -39,12 +39,13 @@ export const getPetData = async (dispatch) => {
         });
       }
     });
-
-    dispatch({
-      type: PetDataActionTypes.LOAD_DATA,
-      payload: data,
-    });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
+  dispatch({
+    type: PetDataActionTypes.LOAD_DATA,
+    payload: data,
+  });
 };
 
 export const getPetDetails = async (id) => {
