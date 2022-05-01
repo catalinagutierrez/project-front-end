@@ -5,7 +5,7 @@ import "./privacy-policy.styles.scss";
 const PrivacyPolicyPage = () => {
   return (
     <div className="wd-privacy-policy">
-      <h1>Private Policy of *website name*</h1>
+      <h1>Private Policy of Cat's Adoption Website</h1>
       <p>
         This page is use to inform visitors regarding the policies with
         collection, use and disclosure of personal information if anyone decide

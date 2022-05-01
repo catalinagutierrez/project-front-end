@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 import UserService from "../../services/user-service";
 import UserCollections from "../../components/user-collections/user-collections";
+import UserInformation from "../../components/user-information/user-information";
 
 const ProfilePage = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
@@ -39,7 +40,12 @@ const ProfilePage = () => {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        user && <UserCollections user={user} />
+        user && (
+          <div>
+            <UserInformation user={user} />
+            <UserCollections user={user} />
+          </div>
+        )
       )}
     </div>
   );

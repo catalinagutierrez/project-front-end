@@ -227,18 +227,20 @@ const UserInformation = ({ user }) => {
           <div className="wd-user-details">
             <h1>
               {user.name}
-              {currentUser && currentUser._id !== user._id && (
-                <span
-                  className="wd-follow-icon"
-                  onClick={(event) => followButtonHandler(event)}
-                >
-                  {following ? (
-                    <FontAwesomeIcon icon={faUserPlus} color="skyblue" />
-                  ) : (
-                    <FontAwesomeIcon icon={faUserPlus} color="lightgrey" />
-                  )}
-                </span>
-              )}
+              {currentUser &&
+                currentUser._id !== user._id &&
+                currentUser.type === "buyer" && (
+                  <span
+                    className="wd-follow-icon"
+                    onClick={(event) => followButtonHandler(event)}
+                  >
+                    {following ? (
+                      <FontAwesomeIcon icon={faUserPlus} color="skyblue" />
+                    ) : (
+                      <FontAwesomeIcon icon={faUserPlus} color="lightgrey" />
+                    )}
+                  </span>
+                )}
             </h1>
             <div className="wd-profile-body">
               <div className="wd-user-information-item">

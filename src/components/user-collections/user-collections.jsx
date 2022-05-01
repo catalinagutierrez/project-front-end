@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import FollowingPreview from "../../components/following-preview/following-preview";
-import UserInformation from "../../components/user-information/user-information";
+
 import CategoryPreview from "../../components/category-preview/category-preview";
 
 import { getPetDetails } from "../../redux/pet-data/pet-data.actions";
@@ -77,7 +77,6 @@ const UserCollections = ({ user }) => {
 
   return (
     <div>
-      <UserInformation user={user} />
       {user.type === "seller" && (
         <CategoryPreview
           items={postedItems}
